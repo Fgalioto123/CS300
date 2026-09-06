@@ -1,0 +1,19 @@
+Reflection Questions
+====
+1. Describe your experience/confidence in completing this project in 2 to 3 sentences.
+   TODO
+2. As you were working on the program, did you find yourself frequently stuck and not knowing how to
+   continue? Did you look up a solution or get significant help from someone in order to continue or
+   complete the project?  (If so, you may not be ready for CS 300.)
+   TODO
+3. What was the most challenging part of writing this program and what did you do to overcome that 
+   challenge?
+   TODO
+4. Did you try the test-driven development approach? If so, what did you think? If not, why did you 
+   choose not to? 
+   TODO
+5. Describe a debugging technique you used to identify and fix a problem in your code.
+   TODO
+
+====
+***Remember to submit this file to Gradescope along with your Java code!***
