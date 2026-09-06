@@ -1,10 +1,7 @@
 package CartProject;
 // TODO: file header
 // TODO: class javadoc comment
-public class CartUtilities {
-  public static void main(String[] args) {
-    
-  }                   
+public class CartUtilities {                  
 // TODO: method javadoc comment
   public static int indexOfItem(String[][] cart, int cartSize, String description) {
     for(int i = 0; i < cartSize; i++) {
@@ -29,22 +26,53 @@ public class CartUtilities {
     } else if(cart[cart.length - 1][0].equals("null")) {
       cart[cartSize - 1][0] = description;
       cart[cartSize - 1][1] = "1";
+      cartSize++;
     }
     
     return cartSize;
   }
   // TODO: method javadoc comment
   public static int removeItemFromCart(String[][] cart, int cartSize, int index) {
-    return -1;
+    for(int i = index; i < cartSize; i++) {
+      if(i == cart.length - 1) {
+        cart[i][0] = "null";
+        cart[i][1] = "null";
+      } else {
+        cart[i][0] = cart[i+1][0];
+        cart[i][1] = cart[i+1][1];
+      }
+    }
+
+    if(index < cartSize) {
+      cartSize--;
+    }
+
+    return cartSize;
   }
   // TODO: method javadoc comment
   public static int getCostOfItem(String[] inventory, int[] costs, String
       description) {
-    return -1;
+    
+    int cost = -1;
+    for(int i = 0; i < inventory.length; i++) {
+      if(inventory[i].equals(description)) {
+        cost = costs[i];
+        return cost;
+      }
+    }   
+
+    return cost;
   }
   // TODO: method javadoc comment
   public static int getTotalCost(String[][] cart, int cartSize, String[] inventory,
       int[] costs) {
-    return -1;
+
+    int totalCost = 0;
+    for(String[] arr : cart) {
+      int cost = getCostOfItem(inventory, costs, arr[0]);
+      totalCost += (cost * Integer.parseInt(arr[1]));
+    }
+
+    return totalCost;
   }
 }
