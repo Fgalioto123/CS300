@@ -1,4 +1,4 @@
-package CartProject;
+
 /*
  * Author: [Fox Galioto]
  * Email: [fgalioto@wisc.edu]

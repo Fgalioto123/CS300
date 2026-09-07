@@ -1,6 +1,3 @@
-package CartProject;
-
-
 /**
  * Contains testing methods for each method in CartUtilities.
  * Each testing method returns true when all its test cases pass, otherwise false.
