@@ -1,10 +1,10 @@
 
 /*
- * Author: [Fox Galioto]
- * Email: [fgalioto@wisc.edu]
- * Course: [CS300], [Fall term 2026]
- * Assignment: [Program 01]
- * Citations: [Nathan and Samuel who helped explain how edge cases worked. Claude AI also helped 
+ * Author:[Fox Galioto]
+ * Email:[fgalioto@wisc.edu]
+ * Course:[CS300], [Fall term 2026]
+ * Assignment:[Program 01]
+ * Citations:[Nathan and Samuel who helped explain how edge cases worked. Claude AI also helped 
  * explain edge cases althought it did not help too much.]
  */
 
