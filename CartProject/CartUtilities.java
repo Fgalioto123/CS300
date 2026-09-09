@@ -23,10 +23,10 @@ public class CartUtilities {
    */
   public static int indexOfItem(String[][] cart, int cartSize, String description) {
     //a for loop that goes through the array 
-    for(int i = 0; i < cartSize; i++) {
+    for (int i = 0; i < cartSize; i++) {
       //checks if the name of the item is the same as the description. If it is that means that the 
       // items are the same and that i is the index of the item so it returns it.
-      if(cart[i][0].equals(description)) {
+      if (cart[i][0].equals(description)) {
         return i;
       }
     }
@@ -49,13 +49,13 @@ public class CartUtilities {
     int index = indexOfItem(cart, cartSize, description);
 
     //if it does exist then it uses the index to find it and add one to the value
-    if(index != -1) {
+    if (index != -1) {
       String amount = cart[index][1];
       int intAmount = Integer.parseInt(amount) + 1;
       cart[index][1] = String.valueOf(intAmount);
     //if it does not exists then it checks to make sure there is space and if there is it adds the 
     // item to the end
-    } else if(cart[cart.length - 1][0].equals("null")) {
+    } else if (cart[cart.length - 1][0].equals("null")) {
       cart[cartSize][0] = description;
       cart[cartSize][1] = "1";
       cartSize++;
@@ -72,13 +72,14 @@ public class CartUtilities {
    * @return returns the the cartsize which is either lower or the same depending if the index was 
    * valid or not
    */
+  
   public static int removeItemFromCart(String[][] cart, int cartSize, int index) {
     //it starts at the index given and makes sure it is less then cartsize because if it is not 
     // then that would mean the index given is not a real item but a null
-    for(int i = index; i < cartSize; i++) {
+    for (int i = index; i < cartSize; i++) {
       //if the index is the last item then just turn it to null because there is nothing after it 
       // to move back in the array
-      if(i == cartSize - 1) {
+      if (i == cartSize - 1) {
         cart[i][0] = "null";
         cart[i][1] = "null";
       //if there are valid items in front then it would continue the loop and keep settings the 
@@ -90,7 +91,7 @@ public class CartUtilities {
     }
 
     //checking to see if it removed anything and if it did minus cartsize by one
-    if(index < cartSize) {
+    if (index < cartSize) {
       cartSize--;
     }
 
@@ -109,8 +110,8 @@ public class CartUtilities {
     int cost = 0;
     //goes through the inventory until it finds the item and when it does it uses that i position 
     // to find the cost in costs and then returns cost.
-    for(int i = 0; i < inventory.length; i++) {
-      if(inventory[i].equals(description)) {
+    for (int i = 0; i < inventory.length; i++) {
+      if (inventory[i].equals(description)) {
         cost = costs[i];
         return cost;
       }
@@ -125,7 +126,7 @@ public class CartUtilities {
    * @param cartSize - expects the size of the cart array of valid items
    * @param inventory - expects the inventroy of the items if the inventory has any items
    * @param costs - expects the costs to align up with the inventory
-   * @return
+   * @return - returns the total cost of all the items
    */
   public static int getTotalCost(String[][] cart, int cartSize, String[] inventory,
       int[] costs) {
@@ -134,7 +135,7 @@ public class CartUtilities {
     //goes through each valid item of the cart and sets the cost using the previous method. It then 
     // adds the cost multiplied by the amount (which is found using Integer.parse int) to total 
     // costs
-    for(int i = 0; i < cartSize; i++) {
+    for (int i = 0; i < cartSize; i++) {
       int cost = getCostOfItem(inventory, costs, cart[i][0]);
       totalCost += (cost * Integer.parseInt(cart[i][1]));
     }
