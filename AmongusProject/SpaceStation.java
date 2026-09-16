@@ -49,6 +49,8 @@ public class SpaceStation {
       }
     }
 
+    System.out.println(overlap(crew[0], crew[1]));
+
     // this loops through the array to find a imposter
     // if it does it then loops through the array again to see if the imposter is
     // touching any of the crew players
@@ -180,14 +182,22 @@ public class SpaceStation {
     float mateTwoLeftBoundary = mate2.getX() - 60;
     float mateTwoRightBoundary = mate2.getX() + 60;
 
-    float onetop = mate1.getY();
-    float onebot = mate1.getY();
+    float onetop = mate1.getY() + 60;
+    float onebot = mate1.getY() - 60;
+    float twotop = mate2.getY() + 60;
+    float twobot = mate2.getY() - 60;
 
-    // checks to see if mate ones left boundary is between matetwo or if its right
-    // boundary is between mates twos boundaries
-    if ((mateOneLeftBoundary >= mateTwoLeftBoundary && mateOneLeftBoundary <= mateTwoRightBoundary)
-        || (mateOneRightBoundary <= mateTwoRightBoundary &&
-            mateOneRightBoundary >= mateTwoLeftBoundary)) {
+    if ((mateOneLeftBoundary >= mateTwoRightBoundary && onetop >= twobot && mateOneLeftBoundary <= mateTwoLeftBoundary
+        && onetop <= twotop)
+        || (mateTwoLeftBoundary >= mateOneRightBoundary && twotop >= onebot
+            && mateOneLeftBoundary <= mateOneLeftBoundary && twotop <= onetop)) {
+      return true;
+    }
+
+    if ((mateOneRightBoundary >= mateTwoLeftBoundary && onetop >= twobot && mateOneRightBoundary <= mateTwoRightBoundary
+        && onetop <= twotop)
+        || (mateTwoRightBoundary >= mateOneLeftBoundary && twotop >= onebot
+            && mateTwoRightBoundary <= mateOneRightBoundary && twotop <= onetop)) {
       return true;
     }
     return false;
