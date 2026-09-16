@@ -20,7 +20,6 @@ public class SpaceStation {
     // already declared outsidee the methods at the top.
     crew = new Crewmate[NUM_PLAYERS];
 
-    // TODO remove this line: add a green crewmate at the center of the window
   }
 
   public static void draw() {
@@ -34,6 +33,15 @@ public class SpaceStation {
     }
 
     // final TODO: if a crewmate is an impostor, check whether its image overlaps
+    for (int j = 0; j < crew.length; j++) {
+      if (crew[j] != null && crew[j].isImpostor()) {
+        for (int k = 0; k < crew.length; k++) {
+          if (crew[k] != null && overlap(crew[j], crew[k])) {
+            crew[k].unalive();
+          }
+        }
+      }
+    }
 
   }
 
