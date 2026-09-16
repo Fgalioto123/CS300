@@ -9,6 +9,13 @@
       "name": "SpaceStation",
       "request": "launch",
       "mainClass": "SpaceStation",
+      "projectName": "CS300_d67774a3"
+    },
+    {
+      "type": "java",
+      "name": "SpaceStation",
+      "request": "launch",
+      "mainClass": "SpaceStation",
       "projectName": "CS300_fe3d2b4"
     },
     {
