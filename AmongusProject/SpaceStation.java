@@ -50,7 +50,7 @@ public class SpaceStation {
       }
     }
 
-    System.out.println(overlap(crew[0], crew[1]));
+    // System.out.println(overlap(crew[0], crew[1]));
     // this loops through the array to find a imposter
     // if it does it then loops through the array again to see if the imposter is
     // touching any of the crew players
