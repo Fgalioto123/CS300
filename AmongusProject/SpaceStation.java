@@ -203,6 +203,8 @@ public class SpaceStation {
 
   /**
    * main method that runs the program
+   * 
+   * @param args - args
    */
   public static void main(String[] args) {
     Utility.runApplication();
