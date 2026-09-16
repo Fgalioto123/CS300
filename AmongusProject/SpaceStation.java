@@ -190,7 +190,8 @@ public class SpaceStation {
     // compares the make sure the left boundary is to the left of the m2 right one.
     // then makes sure that the left boundary for m2 is to the left of the right
     // boundary of m1
-    if (mateOneLeftBoundary >= mateTwoRightBoundary || mateTwoLeftBoundary >= mateOneRightBoundary) {
+    if (mateOneLeftBoundary >= mateTwoRightBoundary ||
+        mateTwoLeftBoundary >= mateOneRightBoundary) {
       return false;
     }
 
@@ -200,6 +201,9 @@ public class SpaceStation {
     return true;
   }
 
+  /**
+   * main method that runs the program
+   */
   public static void main(String[] args) {
     Utility.runApplication();
   }
