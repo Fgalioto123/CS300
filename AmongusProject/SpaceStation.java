@@ -110,6 +110,9 @@ public class SpaceStation {
    * @return true if the mouse is over the mate passed into the paramater
    */
   public static boolean isMouseOver(Crewmate mate) {
+    if (mate == null) {
+      return false;
+    }
     // variables for the positions of the mouse and crewmate
     int mouseX = Utility.mouseX();
     int mouseY = Utility.mouseY();
@@ -168,16 +171,23 @@ public class SpaceStation {
    * @return true if the two crewmates overlap
    */
   public static boolean overlap(Crewmate mate1, Crewmate mate2) {
+    if (mate1 == null || mate2 == null) {
+      return false;
+    }
     // sets the boundaries to compare for the two crewmates
     float mateOneLeftBoundary = mate1.getX() - 60;
     float mateOneRightBoundary = mate1.getX() + 60;
     float mateTwoLeftBoundary = mate2.getX() - 60;
     float mateTwoRightBoundary = mate2.getX() + 60;
 
+    float onetop = mate1.getY();
+    float onebot = mate1.getY();
+
     // checks to see if mate ones left boundary is between matetwo or if its right
     // boundary is between mates twos boundaries
     if ((mateOneLeftBoundary >= mateTwoLeftBoundary && mateOneLeftBoundary <= mateTwoRightBoundary)
-        || (mateOneRightBoundary <= mateTwoRightBoundary && mateOneRightBoundary >= mateTwoLeftBoundary)) {
+        || (mateOneRightBoundary <= mateTwoRightBoundary &&
+            mateOneRightBoundary >= mateTwoLeftBoundary)) {
       return true;
     }
     return false;
