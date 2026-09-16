@@ -4,7 +4,8 @@ import processing.core.PImage;
  * Email: fgalioto@wisc.edu
  * Course: CS300, Fall 2026
  * Assignment: Program 2
- * Citations: None
+ * Citations: GeeksForGeeks, https://www.geeksforgeeks.org/dsa/find-two-rectangles-overlap/
+ * used that website to help understand how to do overlap
  */
 
 /**
@@ -50,7 +51,6 @@ public class SpaceStation {
     }
 
     System.out.println(overlap(crew[0], crew[1]));
-
     // this loops through the array to find a imposter
     // if it does it then loops through the array again to see if the imposter is
     // touching any of the crew players
@@ -86,6 +86,7 @@ public class SpaceStation {
       for (int i = 0; i < crew.length; i++) {
         if (crew[i] == null) {
           crew[i] = new Crewmate(rndNum, Utility.mouseX(), Utility.mouseY(), imposter);
+
           break;
         }
       }
@@ -182,25 +183,21 @@ public class SpaceStation {
     float mateTwoLeftBoundary = mate2.getX() - 60;
     float mateTwoRightBoundary = mate2.getX() + 60;
 
-    float onetop = mate1.getY() + 60;
-    float onebot = mate1.getY() - 60;
-    float twotop = mate2.getY() + 60;
-    float twobot = mate2.getY() - 60;
-
-    if ((mateOneLeftBoundary >= mateTwoRightBoundary && onetop >= twobot && mateOneLeftBoundary <= mateTwoLeftBoundary
-        && onetop <= twotop)
-        || (mateTwoLeftBoundary >= mateOneRightBoundary && twotop >= onebot
-            && mateOneLeftBoundary <= mateOneLeftBoundary && twotop <= onetop)) {
-      return true;
+    float onetop = mate1.getY() - 60;
+    float onebot = mate1.getY() + 60;
+    float twotop = mate2.getY() - 60;
+    float twobot = mate2.getY() + 60;
+    // compares the make sure the left boundary is to the left of the m2 right one.
+    // then makes sure that the left boundary for m2 is to the left of the right
+    // boundary of m1
+    if (mateOneLeftBoundary >= mateTwoRightBoundary || mateTwoLeftBoundary >= mateOneRightBoundary) {
+      return false;
     }
 
-    if ((mateOneRightBoundary >= mateTwoLeftBoundary && onetop >= twobot && mateOneRightBoundary <= mateTwoRightBoundary
-        && onetop <= twotop)
-        || (mateTwoRightBoundary >= mateOneLeftBoundary && twotop >= onebot
-            && mateTwoRightBoundary <= mateOneRightBoundary && twotop <= onetop)) {
-      return true;
+    if (onetop >= twobot || twotop >= onebot) {
+      return false;
     }
-    return false;
+    return true;
   }
 
   public static void main(String[] args) {
