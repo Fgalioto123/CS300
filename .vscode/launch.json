@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Solution1",
+      "request": "launch",
+      "mainClass": "Solution1",
+      "projectName": "CS300_d67774a3"
+    },
+    {
+      "type": "java",
       "name": "Starter",
       "request": "launch",
       "mainClass": "Starter",
