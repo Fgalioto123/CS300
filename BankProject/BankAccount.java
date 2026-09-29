@@ -3,34 +3,42 @@ public class BankAccount {
   private double balance;
   private String accountHolderName;
 
-  // Constructor - ADD: Validation and exception throwing
   public BankAccount(
-    String accountNumber,
-    String accountHolderName,
-    double initialBalance
-  ) {
-    // TODO: Validate accountNumber is exactly 8 digits (8 numbers in String)(throw
-    // InvalidAccountException if not)
-    // TODO: Validate accountHolderName is not null or empty (throw
-    // IllegalArgumentException if invalid)
-    // TODO: Validate initialBalance is not negative (throw IllegalArgumentException
-    // if negative)
+      String accountNumber,
+      String accountHolderName,
+      double initialBalance) {
+
+    if (accountNumber.length() != 8) {
+      throw new InvalidAccountException("Account number is not exactly 8 digits");
+    }
+
+    if (accountHolderName.isEmpty() || accountHolderName.equals("null")) {
+      throw new IllegalArgumentException("Account name is empty or null");
+    }
+
+    if (initialBalance < 0) {
+      throw new IllegalArgumentException("Account balance is negative");
+    }
 
     this.accountNumber = accountNumber;
     this.accountHolderName = accountHolderName;
     this.balance = initialBalance;
   }
 
-  // ADD: throws declaration and validation
   public void deposit(double amount) {
-    // TODO: Throw IllegalArgumentException for negative amounts
+    if (amount < 0) {
+      throw new IllegalArgumentException("Amount that you are trying to deposit is negative");
+    }
     balance += amount;
   }
 
-  // ADD: throws declaration and validation
-  public void withdraw(double amount) {
-    // TODO: Throw IllegalArgumentException for negative amounts
-    // TODO: Throw InsufficientFundsException if amount > balance
+  public void withdraw(double amount) throws InsufficientFundsException {
+    if (amount < 0) {
+      throw new IllegalArgumentException("Amount you are trying to withdraw is negative");
+    } else if (amount > balance) {
+      throw new InsufficientFundsException("Amount you are trying to withdraw is more than you have in your account.");
+    }
+
     balance -= amount;
   }
 
@@ -48,10 +56,9 @@ public class BankAccount {
 
   public String toString() {
     return String.format(
-      "Account: %s, Holder: %s, Balance: $%.2f",
-      accountNumber,
-      accountHolderName,
-      balance
-    );
+        "Account: %s, Holder: %s, Balance: $%.2f",
+        accountNumber,
+        accountHolderName,
+        balance);
   }
 }
