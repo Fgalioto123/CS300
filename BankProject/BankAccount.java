@@ -12,7 +12,7 @@ public class BankAccount {
       throw new InvalidAccountException("Account number is not exactly 8 digits");
     }
 
-    if (accountHolderName.isEmpty() || accountHolderName.equals("null")) {
+    if (accountHolderName.isEmpty() || accountHolderName.equals(null)) {
       throw new IllegalArgumentException("Account name is empty or null");
     }
 

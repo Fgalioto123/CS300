@@ -10,46 +10,66 @@ public class BankingSystem {
   // ADD: Exception handling for duplicate accounts
   public void createAccount(
       String accountNumber, String name, double initialDeposit) {
-    // TODO: Check if account already exists (throw InvalidAccountException if
-    // duplicate)
-    // TODO: Handle exceptions thrown by the BankAccount constructor.
-    // Handling may involve catching the exception or declaring it in this
-    // method’s throws clause. Consider whether this method can resolve an
-    // invalid account (catch) or must defer the issue to its caller (throws).
-    BankAccount account = new BankAccount(accountNumber, name, initialDeposit);
-    accounts.add(account);
+
+    for (BankAccount account : accounts) {
+      if (account.getAccountNumber().equals(accountNumber)) {
+        throw new InvalidAccountException("The account already exists");
+      }
+    }
+
+    try {
+      BankAccount account = new BankAccount(accountNumber, name, initialDeposit);
+      accounts.add(account);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+
   }
 
-  // ADD: Exception throwing for account not found
   public BankAccount findAccount(String accountNumber) {
-    // TODO: Throw InvalidAccountException if account not found
     for (BankAccount account : accounts) {
       if (account.getAccountNumber().equals(accountNumber)) {
         return account;
       }
     }
-    return null; // Replace this with exception throwing
+    throw new InvalidAccountException("The account does not exist");
   }
 
-  // ADD: Exception handling and atomic transactions
   public void transferMoney(
-      String fromAccountNum, String toAccountNum, double amount) {
-    // TODO: Find both accounts (handle exceptions)
-    // TODO: Validate amount is positive
-    // TODO: Check for same account transfer
-    // TODO: Ensure atomic transaction (both operations succeed or both fail)
+      String fromAccountNum, String toAccountNum, double amount)
+      throws IllegalArgumentException, InsufficientFundsException, InvalidAccountException {
+    try {
+      BankAccount fromAccount = findAccount(fromAccountNum);
+      BankAccount toAccount = findAccount(toAccountNum);
 
-    BankAccount fromAccount = findAccount(fromAccountNum);
-    BankAccount toAccount = findAccount(toAccountNum);
+      if (amount < 0) {
+        throw new IllegalArgumentException("The amount cannot be negative");
+      }
 
-    fromAccount.withdraw(amount);
-    toAccount.deposit(amount);
+      if (fromAccount.equals(toAccount)) {
+        throw new IllegalArgumentException("You are trying to transfer from the same account");
+      }
+
+      fromAccount.withdraw(amount);
+      toAccount.deposit(amount);
+
+    } catch (InvalidAccountException e) {
+      throw new InvalidAccountException("The account you are trying to transfer to does not exist");
+    } catch (InsufficientFundsException e) {
+      throw new InsufficientFundsException("The amount you are trying to transfer is more than you currently have");
+    }
+
   }
 
-  public void displayAccountInfo(String accountNumber) {
-    // TODO: Handle case when account doesn't exist
-    BankAccount account = findAccount(accountNumber);
-    System.out.println(account.toString());
+  public void displayAccountInfo(String accountNumber) throws InvalidAccountException {
+
+    try {
+      BankAccount account = findAccount(accountNumber);
+      System.out.println(account.toString());
+    } catch (InvalidAccountException e) {
+      throw new InvalidAccountException("The account you are trying to display does not exist");
+    }
+
   }
 
   public double getTotalBankBalance() {
