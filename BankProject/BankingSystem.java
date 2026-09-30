@@ -1,5 +1,18 @@
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall 2026
+ * Assignment: Program 3
+ * Citations: None
+ */
+
 import java.util.ArrayList;
 
+/**
+ * This class creates a system of bank accounts which can be accessed to do
+ * things like transfer between the two, create new accounts, find accounts, and
+ * display them.
+ */
 public class BankingSystem {
   private ArrayList<BankAccount> accounts;
 

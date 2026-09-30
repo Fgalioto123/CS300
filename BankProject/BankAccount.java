@@ -1,3 +1,11 @@
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall 2026
+ * Assignment: Program 3
+ * Citations: None
+ */
+
 public class BankAccount {
   private String accountNumber;
   private double balance;
@@ -12,7 +20,7 @@ public class BankAccount {
       throw new InvalidAccountException("Account number is not exactly 8 digits");
     }
 
-    if (accountHolderName.isEmpty() || accountHolderName.equals(null)) {
+    if (accountHolderName == null || accountHolderName.isEmpty()) {
       throw new IllegalArgumentException("Account name is empty or null");
     }
 

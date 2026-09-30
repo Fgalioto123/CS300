@@ -1,4 +1,10 @@
-//TODO file header comment
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall 2026
+ * Assignment: Program 3
+ * Citations: None
+ */
 
 /**
  * This contains test cases to comprehensively test the BankAccount and
@@ -111,6 +117,7 @@ public class BankingSystemTester {
       System.out.println("PASS");
       return true;
     } catch (Exception e) {
+      System.out.println(e.getMessage());
       System.out.println("FAIL");
       return false;
     }

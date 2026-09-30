@@ -1,10 +1,10 @@
 Reflection Questions
 
 1. Describe your experience/confidence in completing this project in 2 to 3 sentences.
-   TODO
+   It was good to learn more about how to use exceptions. Before this class I have only used exceptions once and it was only used barely.
 2. How did exception handling improve your program's robustness?
-   TODO
+   It made the program run a lot smoother when the person made a mistake in typing in the correct input. There is a lot of ways to make incorrect inputs to the program which would break it maybe not right away but eventually.
 3. This program uses custom exceptions. Did you think this was a good design choice? Why or why not?
-   TODO
+   I think it was because it made the exceptions more clear on what is the problem. It also helped organization a lot of keeping certain exceptions distinct from eachother.
 4. Did you try the test-driven development approach? If so, what did you think? If not, why did you choose not to?
-   TODO
+   I did not use the test-driven development approach because I am used to making the program first then test it which works well for me. This is what I have always done in previous programming assignments from this class and others.
