@@ -38,7 +38,7 @@ public class BankingSystem {
    *                                 input of creating the account
    */
   public void createAccount(
-      String accountNumber, String name, double initialDeposit) throws InvalidAccountException {
+      String accountNumber, String name, double initialDeposit) {
 
     for (BankAccount account : accounts) {
       if (account.getAccountNumber().equals(accountNumber)) {
@@ -64,7 +64,7 @@ public class BankingSystem {
    * @throws InvalidAccountException - exception thrown if the account was not
    *                                 found
    */
-  public BankAccount findAccount(String accountNumber) throws InvalidAccountException {
+  public BankAccount findAccount(String accountNumber) {
     for (BankAccount account : accounts) {
       if (account.getAccountNumber().equals(accountNumber)) {
         return account;
@@ -91,7 +91,7 @@ public class BankingSystem {
    */
   public void transferMoney(
       String fromAccountNum, String toAccountNum, double amount)
-      throws IllegalArgumentException, InsufficientFundsException, InvalidAccountException {
+      throws InsufficientFundsException {
     try {
       BankAccount fromAccount = findAccount(fromAccountNum);
       BankAccount toAccount = findAccount(toAccountNum);
@@ -122,7 +122,7 @@ public class BankingSystem {
    * @param accountNumber - the account number of the account being accessed.
    * @throws InvalidAccountException - thrown if the account does not exist.
    */
-  public void displayAccountInfo(String accountNumber) throws InvalidAccountException {
+  public void displayAccountInfo(String accountNumber) {
 
     try {
       BankAccount account = findAccount(accountNumber);

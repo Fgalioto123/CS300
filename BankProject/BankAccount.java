@@ -33,7 +33,7 @@ public class BankAccount {
   public BankAccount(
       String accountNumber,
       String accountHolderName,
-      double initialBalance) throws InvalidAccountException, IllegalArgumentException {
+      double initialBalance) {
 
     if (accountNumber.length() != 8) {
       throw new InvalidAccountException("Account number is not exactly 8 digits");
