@@ -60,7 +60,7 @@ public class BankAccount {
    *                                  deposit is negative
    */
 
-  public void deposit(double amount) throws IllegalArgumentException {
+  public void deposit(double amount) {
     if (amount < 0) {
       throw new IllegalArgumentException("Amount that you are trying to deposit is negative");
     }
