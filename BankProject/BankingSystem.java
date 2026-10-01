@@ -16,13 +16,29 @@ import java.util.ArrayList;
 public class BankingSystem {
   private ArrayList<BankAccount> accounts;
 
+  /**
+   * constructor for the class that just creates a empty arrayList which will be
+   * the list that holds all the accounts
+   */
   public BankingSystem() {
     accounts = new ArrayList<BankAccount>();
   }
 
-  // ADD: Exception handling for duplicate accounts
+  /**
+   * This method creates the accounts checking to make sure the account doesn't
+   * already exist and that you put in the correct values for the account
+   * 
+   * @param accountNumber  - The number of the account
+   * @param name           - The name of the person who owns the account
+   * @param initialDeposit - the amount of money that gets deposited as the
+   *                       account gets created.
+   * @throws InvalidAccountException - throws this exception if the account
+   *                                 already exists. Otherwise uses a try catch to
+   *                                 check to see if there are any errors in the
+   *                                 input of creating the account
+   */
   public void createAccount(
-      String accountNumber, String name, double initialDeposit) {
+      String accountNumber, String name, double initialDeposit) throws InvalidAccountException {
 
     for (BankAccount account : accounts) {
       if (account.getAccountNumber().equals(accountNumber)) {
@@ -39,7 +55,16 @@ public class BankingSystem {
 
   }
 
-  public BankAccount findAccount(String accountNumber) {
+  /**
+   * this method finds an account using the account number that is given. If it is
+   * not found then throw an exception
+   * 
+   * @param accountNumber - the number of the account wanted to be found
+   * @return - returns the account if found otherwise and exception
+   * @throws InvalidAccountException - exception thrown if the account was not
+   *                                 found
+   */
+  public BankAccount findAccount(String accountNumber) throws InvalidAccountException {
     for (BankAccount account : accounts) {
       if (account.getAccountNumber().equals(accountNumber)) {
         return account;
@@ -48,6 +73,22 @@ public class BankingSystem {
     throw new InvalidAccountException("The account does not exist");
   }
 
+  /**
+   * This method transfers money from one account to the other while checking for
+   * multiple exceptions
+   * 
+   * @param fromAccountNum - the account number of the account the money should be
+   *                       withdrawn from
+   * @param toAccountNum   - the account number the money should be deposited into
+   * @param amount         - the amount of money that is being transfered.
+   * @throws IllegalArgumentException   - throws if the amount is negative or if
+   *                                    you are trying to transfer to the same
+   *                                    account
+   * @throws InsufficientFundsException - throws if you are trying to withdraw
+   *                                    more than you have from an account
+   * @throws InvalidAccountException    - if you try to transfer to an account
+   *                                    that doesn't exist or take from it
+   */
   public void transferMoney(
       String fromAccountNum, String toAccountNum, double amount)
       throws IllegalArgumentException, InsufficientFundsException, InvalidAccountException {
@@ -74,6 +115,12 @@ public class BankingSystem {
 
   }
 
+  /**
+   * this method displays the information of an account while checking for errors
+   * 
+   * @param accountNumber - the account number of the account being accessed.
+   * @throws InvalidAccountException - thrown if the account does not exist.
+   */
   public void displayAccountInfo(String accountNumber) throws InvalidAccountException {
 
     try {
@@ -85,6 +132,12 @@ public class BankingSystem {
 
   }
 
+  /**
+   * this method returns the total balance of every account
+   * 
+   * @return - returns a double which is the total of all the balances of all the
+   *         accounts
+   */
   public double getTotalBankBalance() {
     double total = 0;
     for (BankAccount account : accounts) {

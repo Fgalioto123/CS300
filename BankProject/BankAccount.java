@@ -6,15 +6,33 @@
  * Citations: None
  */
 
+/**
+ * this class creates bank accounts and has a few methods that go with it like
+ * withdrawing and depositing to and from the account
+ */
 public class BankAccount {
   private String accountNumber;
   private double balance;
   private String accountHolderName;
 
+  /**
+   * the constructor of the class to create the accounts while checking for
+   * exceptions
+   * 
+   * @param accountNumber     - the number of the account
+   * @param accountHolderName - the name of the person who owns the account
+   * @param initialBalance    - the starting balance of the account when it is
+   *                          created
+   * @throws InvalidAccountException  - throws if the account number is not
+   *                                  exactly 8 digits
+   * @throws IllegalArgumentException - throws if either the account name is empty
+   *                                  or null. also throws if the initial balance
+   *                                  is negative
+   */
   public BankAccount(
       String accountNumber,
       String accountHolderName,
-      double initialBalance) {
+      double initialBalance) throws InvalidAccountException, IllegalArgumentException {
 
     if (accountNumber.length() != 8) {
       throw new InvalidAccountException("Account number is not exactly 8 digits");
@@ -33,13 +51,26 @@ public class BankAccount {
     this.balance = initialBalance;
   }
 
-  public void deposit(double amount) {
+  /**
+   * deposits money into the account
+   * 
+   * @param amount - amount getting deposited
+   * @throws IllegalArgumentException - throws if the amount you are trying to
+   *                                  deposit is negative
+   */
+  public void deposit(double amount) throws IllegalArgumentException {
     if (amount < 0) {
       throw new IllegalArgumentException("Amount that you are trying to deposit is negative");
     }
     balance += amount;
   }
 
+  /**
+   * withdraws money from an account
+   * 
+   * @param amount - the amount trying to be withdrawn
+   * @throws InsufficientFundsException
+   */
   public void withdraw(double amount) throws InsufficientFundsException {
     if (amount < 0) {
       throw new IllegalArgumentException("Amount you are trying to withdraw is negative");
