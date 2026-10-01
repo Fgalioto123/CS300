@@ -29,6 +29,7 @@ public class BankAccount {
    *                                  or null. also throws if the initial balance
    *                                  is negative
    */
+
   public BankAccount(
       String accountNumber,
       String accountHolderName,
@@ -58,6 +59,7 @@ public class BankAccount {
    * @throws IllegalArgumentException - throws if the amount you are trying to
    *                                  deposit is negative
    */
+
   public void deposit(double amount) throws IllegalArgumentException {
     if (amount < 0) {
       throw new IllegalArgumentException("Amount that you are trying to deposit is negative");
@@ -73,11 +75,13 @@ public class BankAccount {
    *                                    withdraw is more than you have in your
    *                                    bank account.
    */
+
   public void withdraw(double amount) throws InsufficientFundsException {
     if (amount < 0) {
       throw new IllegalArgumentException("Amount you are trying to withdraw is negative");
     } else if (amount > balance) {
-      throw new InsufficientFundsException("Amount you are trying to withdraw is more than you have in your account.");
+      throw new InsufficientFundsException("Amount you are trying" +
+          "to withdraw is more than you have in your account.");
     }
 
     balance -= amount;

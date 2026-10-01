@@ -110,7 +110,8 @@ public class BankingSystem {
     } catch (InvalidAccountException e) {
       throw new InvalidAccountException("The account you are trying to transfer to does not exist");
     } catch (InsufficientFundsException e) {
-      throw new InsufficientFundsException("The amount you are trying to transfer is more than you currently have");
+      throw new InsufficientFundsException("The amount you are" +
+          "trying to transfer is more than you currently have");
     }
 
   }
