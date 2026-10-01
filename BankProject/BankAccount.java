@@ -69,7 +69,9 @@ public class BankAccount {
    * withdraws money from an account
    * 
    * @param amount - the amount trying to be withdrawn
-   * @throws InsufficientFundsException
+   * @throws InsufficientFundsException - throws if the amount you are trying to
+   *                                    withdraw is more than you have in your
+   *                                    bank account.
    */
   public void withdraw(double amount) throws InsufficientFundsException {
     if (amount < 0) {
@@ -81,17 +83,39 @@ public class BankAccount {
     balance -= amount;
   }
 
+  /**
+   * this method returns the balance of the bank account
+   * 
+   * @return - returns a double which is the balance of the bank account
+   */
   public double getBalance() {
     return balance;
   }
 
+  /**
+   * returns the account number of the account
+   * 
+   * @return - returns a String which is the account number of the account
+   */
   public String getAccountNumber() {
     return accountNumber;
   }
 
+  /**
+   * returns the name of the account
+   * 
+   * @return - returns a String which is the name of the person who owns the
+   *         account
+   */
   public String getAccountHolderName() {
     return accountHolderName;
   }
+
+  /**
+   * Returns a String which is the account number, name, and balance.
+   * 
+   * @return - returns the string from above.
+   */
 
   public String toString() {
     return String.format(
