@@ -15,19 +15,46 @@ public class Student {
   private ArrayList<Double> grades;
 
   public Student(String name, String studentId) {
-    // TODO Complete initialization of every instance field
+    this.name = name;
+    this.studentId = studentId;
+    this.grades = new ArrayList<Double>();
   }
 
-  public double getAverage() {
-    // TODO Complete implementation
-    return 0.0;
+  public void addGrade(double grade) throws InvalidGradeException {
+    if (grade > MAX_GRADE || grade < MIN_GRADE) {
+      throw new InvalidGradeException("The grade is not valid");
+    }
+    grades.add(grade);
   }
 
-  public String getLetterGrade() {
-    // TODO Complete implementation
-    return "";
+  public double getAverage() throws NoGradesException {
+    if (grades.isEmpty()) {
+      throw new NoGradesException("There are no grades to take an average from.");
+    }
+
+    double avg = 0;
+    for (Double d : grades) {
+      avg += d;
+    }
+
+    return avg / ((double) grades.size());
   }
-  
+
+  public String getLetterGrade() throws NoGradesException {
+    double avg = getAverage();
+    if (avg >= A_THRESHOLD) {
+      return "A";
+    } else if (avg >= B_THRESHOLD) {
+      return "B";
+    } else if (avg >= C_THRESHOLD) {
+      return "C";
+    } else if (avg >= D_THRESHOLD) {
+      return "D";
+    } else {
+      return "F";
+    }
+  }
+
   public String getName() {
     return name;
   }
@@ -42,20 +69,21 @@ public class Student {
   }
 
   /**
-   * Returns a string representation of the student including name, ID, average, and letter grade.
+   * Returns a string representation of the student including name, ID, average,
+   * and letter grade.
    * If no grades are recorded, indicates that no grades are available.
    *
    * @return a formatted string containing student information
    */
-  @Override public String toString() {
+  @Override
+  public String toString() {
     try {
       return String.format(
-        "%s (ID: %s) - Average: %.2f (%s)",
-        name,
-        studentId,
-        getAverage(),
-        getLetterGrade()
-      );
+          "%s (ID: %s) - Average: %.2f (%s)",
+          name,
+          studentId,
+          getAverage(),
+          getLetterGrade());
     } catch (NoGradesException e) {
       return String.format("%s (ID: %s) - No grades recorded", name, studentId);
     }

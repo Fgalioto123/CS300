@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Test class for GradeBook system functionality.
  * Tests both Student and GradeBook classes with comprehensive coverage
@@ -7,13 +9,14 @@ public class GradeBookTester {
 
   /**
    * Calls the testing methods and prints out the results.
+   * 
    * @param args unused
    */
   public static void main(String[] args) {
     System.out.println("=== GRADEBOOK TESTING SUITE ===\n");
-    
+
     boolean allPassed = allTests();
-    
+
     System.out.println("\n=== FINAL TEST RESULTS ===");
     if (allPassed) {
       System.out.println("ALL TESTS PASSED!");
@@ -22,8 +25,9 @@ public class GradeBookTester {
     }
   }
 
-  /** 
+  /**
    * Calls all the individual testing methods.
+   * 
    * @return true if all tests passed, false if any test failed.
    */
   public static boolean allTests() {
@@ -40,21 +44,48 @@ public class GradeBookTester {
   public static boolean testAddGradeValidation() {
     System.out.println("Testing addGrade validation...");
 
-    // TODO: Test adding valid grades
+    try {
+      Student s = new Student("Fox", "001");
+      s.addGrade(91.00);
+      System.out.println("Correctly added grade");
+    } catch (Exception e) {
+      System.out.println("Caught an error trying to add a grade");
+      return false;
+    }
 
-    // TODO: Test invalid grade - negative
+    try {
+      Student s = new Student("Fox", "001");
+      s.addGrade(-91.00);
+      return false;
+    } catch (Exception e) {
+      System.out.println("Caught an error trying to add a grade (Correct)");
+    }
 
-    // TODO: Test invalid grade - over 100
+    try {
+      Student s = new Student("Fox", "001");
+      s.addGrade(991.00);
+      return false;
+    } catch (Exception e) {
+      System.out.println("Caught an error trying to add a grade (Correct)");
+    }
 
-    return false; // TODO: return return true if all tests pass, false otherwise
+    try {
+      Student s = new Student("Fox", "001");
+      s.addGrade(Double.MAX_VALUE);
+      return false;
+    } catch (Exception e) {
+      System.out.println("Caught an error trying to add a grade (Correct)");
+    }
+
+    return true;
   }
 
-  // ---- PROVIDED 
+  // ---- PROVIDED
   public static boolean testAverageCalculation() {
     System.out.println("Testing average calculation...");
     boolean allTestsPassed = true;
 
-    // Test average with several valid grades 
+    // Test average with several valid grades
     // - manually calculated: (80+90+85+70)/4 = 81.25
     try {
       Student student = new Student("Average Test", "004");
@@ -65,7 +96,7 @@ public class GradeBookTester {
 
       double average = student.getAverage();
       if (Math.abs(average - 81.25) > 0.001) {
-        System.out.println("Average calculation incorrect - expected 81.25, got " 
+        System.out.println("Average calculation incorrect - expected 81.25, got "
             + average);
         allTestsPassed = false;
       } else {
@@ -90,7 +121,7 @@ public class GradeBookTester {
         System.out.println("Single grade average calculated correctly (95.0)");
       }
     } catch (Exception e) {
-      System.out.println("Single grade average threw unexpected exception: " 
+      System.out.println("Single grade average threw unexpected exception: "
           + e.getMessage());
       allTestsPassed = false;
     }
@@ -108,7 +139,7 @@ public class GradeBookTester {
       }
       System.out.println("No grades correctly throws NoGradesException");
     } catch (Exception e) {
-      System.out.println("No grades threw wrong exception type: " 
+      System.out.println("No grades threw wrong exception type: "
           + e.getClass().getSimpleName());
       allTestsPassed = false;
     }
@@ -120,15 +151,40 @@ public class GradeBookTester {
   public static boolean testStudentManagement() {
     System.out.println("Testing student add/find operations...");
 
-    // TODO: Create GradeBook and add 2 students successfully
+    GradeBook gradeBook = new GradeBook();
+    try {
+      gradeBook.addStudent(new Student("Fox", "001"));
+      gradeBook.addStudent(new Student("Bob", "002"));
+    } catch (DuplicateStudentException e) {
+      System.out.println("Duplicate student was attempted to add");
+      return false;
+    }
 
-    // TODO: Test finding existing student by ID
+    try {
+      Student newStudent = gradeBook.findStudent("001");
+    } catch (IllegalArgumentException e) {
+      System.out.println("The id number was either blank or null(incorrect)");
+      return false;
+    } catch (StudentNotFoundException e) {
+      System.out.println("Student was not found(incorrect)");
+      return false;
+    }
 
-    // TODO: Test DuplicateStudentException when adding duplicate ID
+    try {
+      gradeBook.addStudent(new Student("Fox", "001"));
+      return false;
+    } catch (DuplicateStudentException e) {
+      System.out.println("Caught duplicate student trying to be added (correct)");
+    }
 
     // TODO: Test StudentNotFoundException when searching non-existent ID
+    try {
+      Student newStudent = gradeBook.findStudent("005");
+    } catch (StudentNotFoundException e) {
+      System.out.println("Student not found with that ID (correct)");
+    }
 
-    return false; // TODO: return return true if all tests pass, false otherwise
+    return true;
   }
 
   public static boolean testClassAverageCalculation() {
@@ -137,7 +193,7 @@ public class GradeBookTester {
 
     // Create 2 students with grades and test class average
     // Student 1: 85, 95 (avg: 90)
-    // Student 2: 70, 80, 90 (avg: 80) 
+    // Student 2: 70, 80, 90 (avg: 80)
     // Class average: (85+95+70+80+90)/5 = 84.0
     try {
       GradeBook gradeBook = new GradeBook();
@@ -155,14 +211,14 @@ public class GradeBookTester {
 
       double classAverage = gradeBook.getClassAverage();
       if (Math.abs(classAverage - 84.0) > 0.001) {
-        System.out.println("Class average incorrect - expected 84.0, got " 
+        System.out.println("Class average incorrect - expected 84.0, got "
             + classAverage);
         allTestsPassed = false;
       } else {
         System.out.println("Class average calculated correctly (84.0)");
       }
     } catch (Exception e) {
-      System.out.println("Class average calculation threw unexpected exception: " 
+      System.out.println("Class average calculation threw unexpected exception: "
           + e.getMessage());
       allTestsPassed = false;
     }
@@ -180,7 +236,7 @@ public class GradeBookTester {
       }
       System.out.println("Empty gradebook correctly throws NoGradesException");
     } catch (Exception e) {
-      System.out.println("Empty gradebook threw wrong exception type: " 
+      System.out.println("Empty gradebook threw wrong exception type: "
           + e.getClass().getSimpleName());
       allTestsPassed = false;
     }
@@ -204,7 +260,7 @@ public class GradeBookTester {
       System.out.println("Students with no grades correctly throws NoGradesException");
     } catch (Exception e) {
       System.out.println("Students with no grades threw wrong exception type: "
-           + e.getClass().getSimpleName());
+          + e.getClass().getSimpleName());
       allTestsPassed = false;
     }
 
@@ -217,24 +273,40 @@ public class GradeBookTester {
 
     try {
       GradeBook gradeBook = new GradeBook();
-      
-      // TODO: Create honors student (avg≥90)
-      
-      // TODO: Create regular student (avg<90)
-      
-      // TODO: Create student with no grades
 
-      // TODO: Verify getHonorsStudents() returns exactly 1 student
+      Student studentOne = new Student("Fox", "001");
+      studentOne.addGrade(91);
+      studentOne.addGrade(96);
+      gradeBook.addStudent(studentOne);
 
-      // TODO: Verify correct student is in honors list
+      Student studentTwo = new Student("Bob", "002");
+      studentOne.addGrade(71);
+      studentOne.addGrade(86);
+      gradeBook.addStudent(studentTwo);
+
+      Student studentThree = new Student("Jeff", "003");
+      gradeBook.addStudent(studentThree);
+
+      ArrayList<Student> honors = gradeBook.getHonorsStudents();
+      System.out.println(gradeBook.getAllStudents().get(0).getAverage());
+      // need to fix honors getting added.
+      if (honors.size() != 1) {
+        System.out.println("Honors students returned more than 1 (incorrect)");
+        return false;
+      }
+
+      if (honors.get(0).getName() != "Fox") {
+        System.out.println("Wrong honors student was gotten");
+        return false;
+      }
 
     } catch (Exception e) {
       System.out.println("Honors identification threw unexpected exception: "
           + e.getMessage());
-      // TODO: Fail test if there was an unexpected exception
+      return false;
     }
 
-    return false; // TODO: return return true if all tests pass, false otherwise
+    return true;
   }
 
   public static boolean testCompleteWorkflow() {
