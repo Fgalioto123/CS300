@@ -146,7 +146,7 @@ public class GradeBook {
    */
   public String generateReport() {
     if (students.size() == 0) {
-      return null;
+      return "";
     }
     String report = "=== GRADEBOOK REPORT ===";
 

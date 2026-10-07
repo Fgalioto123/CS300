@@ -194,7 +194,8 @@ public class GradeBookTester {
 
     // TODO: Test StudentNotFoundException when searching non-existent ID
     try {
-      Student newStudent = gradeBook.findStudent("005");
+      Student newStudent = gradeBook.findStudent("015");
+      return false;
     } catch (StudentNotFoundException e) {
       System.out.println("Student not found with that ID (correct)");
     }
@@ -360,14 +361,14 @@ public class GradeBookTester {
         return false;
       }
 
-      System.out.println(gradeBook.generateReport());
-      if (gradeBook.getAllStudents().isEmpty()) {
+      if (gradeBook.generateReport().equals("")) {
         return false;
       }
       if (gradeBook.generateReport().isBlank()) {
         System.out.println("Gradebook returned empty when it should have not");
         return false;
       }
+      System.out.println(gradeBook.generateReport());
 
     } catch (InvalidGradeException e) {
       System.out.println("Grade was not able to be added (incorrect)");
