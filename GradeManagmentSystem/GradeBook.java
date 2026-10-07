@@ -166,7 +166,7 @@ public class GradeBook {
     double classAverage;
     try {
       classAverage = getClassAverage();
-      report += "\nClass Average: " + classAverage;
+      report += "\nClass Average: " + classAverage + "%";
     } catch (NoGradesException e) {
       System.out.println("got error when getting grades");
     }
