@@ -147,7 +147,7 @@ public class GradeBook {
   public String generateReport() {
     String report = "=== GRADEBOOK REPORT ===";
     if (students.size() == 0) {
-      report += "\n failed";
+      report += "\nNo students in gradebook.";
       return report;
     }
 
