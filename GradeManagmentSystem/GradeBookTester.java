@@ -1,3 +1,12 @@
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall 2026
+ * Assignment: Program 4
+ * Citations: Stack overflow for isBlank vs isEmpty
+ * https://stackoverflow.com/questions/23419087/stringutils-isblank-vs-string-isempty
+ */
+
 import java.util.ArrayList;
 
 /**
@@ -45,8 +54,8 @@ public class GradeBookTester {
     System.out.println("Testing addGrade validation...");
 
     try {
-      Student s = new Student("Fox", "001");
-      s.addGrade(91.00);
+      Student student = new Student("Fox", "001");
+      student.addGrade(91.00);
       System.out.println("Correctly added grade");
     } catch (Exception e) {
       System.out.println("Caught an error trying to add a grade");
@@ -54,24 +63,24 @@ public class GradeBookTester {
     }
 
     try {
-      Student s = new Student("Fox", "001");
-      s.addGrade(-91.00);
+      Student student = new Student("Fox", "001");
+      student.addGrade(-91.00);
       return false;
     } catch (Exception e) {
       System.out.println("Caught an error trying to add a grade (Correct)");
     }
 
     try {
-      Student s = new Student("Fox", "001");
-      s.addGrade(991.00);
+      Student student = new Student("Fox", "001");
+      student.addGrade(991.00);
       return false;
     } catch (Exception e) {
       System.out.println("Caught an error trying to add a grade (Correct)");
     }
 
     try {
-      Student s = new Student("Fox", "001");
-      s.addGrade(Double.MAX_VALUE);
+      Student student = new Student("Fox", "001");
+      student.addGrade(Double.MAX_VALUE);
       return false;
     } catch (Exception e) {
       System.out.println("Caught an error trying to add a grade (Correct)");
@@ -337,6 +346,7 @@ public class GradeBookTester {
             " return an error when it should have on an empty students array");
         return false;
       } catch (Exception e) {
+        System.out.println("Correctly got an error when running getClassAverage");
       }
 
       if (gradeBook.getHonorsStudents().size() != 1) {

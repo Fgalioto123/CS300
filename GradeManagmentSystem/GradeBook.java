@@ -38,8 +38,8 @@ public class GradeBook {
       throw new IllegalArgumentException();
     }
 
-    for (Student s : students) {
-      if (s.getStudentId().equals(student.getStudentId())) {
+    for (Student stud : students) {
+      if (stud.getStudentId().equals(student.getStudentId())) {
         throw new DuplicateStudentException("Duplicate Student IDs");
       }
     }
@@ -62,9 +62,9 @@ public class GradeBook {
       throw new IllegalArgumentException();
     }
 
-    for (Student s : students) {
-      if (s.getStudentId().equals(studentId)) {
-        return s;
+    for (Student stud : students) {
+      if (stud.getStudentId().equals(studentId)) {
+        return stud;
       }
     }
 
@@ -89,9 +89,9 @@ public class GradeBook {
     double counter = 0.0;
     boolean gradesExist = false;
 
-    for (Student s : students) {
-      for (Double d : s.getGrades()) {
-        avg += d;
+    for (Student stud : students) {
+      for (Double doubl : stud.getGrades()) {
+        avg += doubl;
         gradesExist = true;
         counter += 1.0;
       }
@@ -104,6 +104,11 @@ public class GradeBook {
     return avg / counter;
   }
 
+  /**
+   * gets the students
+   * 
+   * @return - returns the students
+   */
   public ArrayList<Student> getAllStudents() {
     // Create a defensive copy to maintain encapsulation
     return new ArrayList<>(students);
@@ -119,10 +124,10 @@ public class GradeBook {
   public ArrayList<Student> getHonorsStudents() {
     ArrayList<Student> honorsStudents = new ArrayList<>();
 
-    for (Student s : students) {
+    for (Student stud : students) {
       try {
-        if (s.getAverage() >= Student.A_THRESHOLD) {
-          honorsStudents.add(s);
+        if (stud.getAverage() >= Student.A_THRESHOLD) {
+          honorsStudents.add(stud);
         }
       } catch (NoGradesException e) {
         // System.out.println("Student has no grades but trying to get avg caught." +
@@ -150,8 +155,8 @@ public class GradeBook {
     report += "\nTotal Students: " + totalStudents;
     report += "\nStudent Details: ";
     report += "\n================  ";
-    for (Student s : students) {
-      report += "\n" + s.toString();
+    for (Student stud : students) {
+      report += "\n" + stud.toString();
     }
 
     double classAverage;
@@ -163,8 +168,8 @@ public class GradeBook {
 
     ArrayList<Student> honorStudents = getHonorsStudents();
     report += "\nHonors Students (A average): " + honorStudents.size();
-    for (Student s : honorStudents) {
-      report += "\n - " + s.getName();
+    for (Student stud : honorStudents) {
+      report += "\n - " + stud.getName();
     }
 
     report += "\n================";

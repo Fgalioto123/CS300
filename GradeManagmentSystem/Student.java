@@ -69,8 +69,8 @@ public class Student {
     }
 
     double avg = 0;
-    for (Double d : grades) {
-      avg += d;
+    for (Double grade : grades) {
+      avg += grade;
     }
 
     return avg / ((double) grades.size());
@@ -99,14 +99,29 @@ public class Student {
     }
   }
 
+  /**
+   * gets anme
+   * 
+   * @return name
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * gets id
+   * 
+   * @return id
+   */
   public String getStudentId() {
     return studentId;
   }
 
+  /**
+   * gets grades
+   * 
+   * @return grades
+   */
   public ArrayList<Double> getGrades() {
     // Create a defensive copy to maintain encapsulation
     return new ArrayList<>(grades);
