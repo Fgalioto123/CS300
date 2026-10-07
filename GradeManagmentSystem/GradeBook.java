@@ -145,10 +145,11 @@ public class GradeBook {
    * @return - returns the string which is the report.
    */
   public String generateReport() {
-    if (students.size() == 0) {
-      return "";
-    }
     String report = "=== GRADEBOOK REPORT ===";
+    if (students.size() == 0) {
+      report += "\n failed";
+      return report;
+    }
 
     if (students.isEmpty()) {
       return report += "\nNo students in gradebook.";
