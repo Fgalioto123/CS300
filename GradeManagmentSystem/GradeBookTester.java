@@ -280,15 +280,14 @@ public class GradeBookTester {
       gradeBook.addStudent(studentOne);
 
       Student studentTwo = new Student("Bob", "002");
-      studentOne.addGrade(71);
-      studentOne.addGrade(86);
+      studentTwo.addGrade(71);
+      studentTwo.addGrade(86);
       gradeBook.addStudent(studentTwo);
 
       Student studentThree = new Student("Jeff", "003");
       gradeBook.addStudent(studentThree);
 
       ArrayList<Student> honors = gradeBook.getHonorsStudents();
-      System.out.println(gradeBook.getAllStudents().get(0).getAverage());
       // need to fix honors getting added.
       if (honors.size() != 1) {
         System.out.println("Honors students returned more than 1 (incorrect)");
@@ -312,15 +311,62 @@ public class GradeBookTester {
   public static boolean testCompleteWorkflow() {
     System.out.println("Testing complete workflow...");
 
-    // TODO: Create a GradeBook
+    GradeBook gradeBook = new GradeBook();
 
-    // TODO: Add 3 students with various grades
+    try {
+      Student studentOne = new Student("Fox", "001");
+      studentOne.addGrade(90);
+      studentOne.addGrade(90);
+      gradeBook.addStudent(studentOne);
 
-    // TODO: Test findStudent, class average, and honors identification
+      Student studentTwo = new Student("Bob", "002");
+      studentTwo.addGrade(80);
+      studentTwo.addGrade(80);
+      gradeBook.addStudent(studentTwo);
+
+      Student studentThree = new Student("Jeff", "003");
+      gradeBook.addStudent(studentThree);
+
+      Student testStudent = gradeBook.findStudent("001");
+      double avg = gradeBook.getClassAverage();
+
+      try {
+        GradeBook testBook = new GradeBook();
+        testBook.getClassAverage();
+        System.out.println("Ran getClassAverage method and it did not " +
+            " return an error when it should have on an empty students array");
+        return false;
+      } catch (Exception e) {
+      }
+
+      if (gradeBook.getHonorsStudents().size() != 1) {
+        System.out.println("Gradebook got either 0 or more than one honors students");
+        return false;
+      }
+
+      System.out.println(gradeBook.generateReport());
+      if (gradeBook.generateReport().isBlank()) {
+        System.out.println("Gradebook returned empty when it should have not");
+        return false;
+      }
+
+    } catch (InvalidGradeException e) {
+      System.out.println("Grade was not able to be added (incorrect)");
+      return false;
+    } catch (DuplicateStudentException e) {
+      System.out.println("Duplicate student was found to be added (incorrect)");
+      return false;
+    } catch (StudentNotFoundException e) {
+      System.out.println("Student was not found (inccorect)");
+      return false;
+    } catch (NoGradesException e) {
+      System.out.println("No grades were found for any of the students (incorrect)");
+      return false;
+    }
 
     // TODO: Calls generateReport(), verifies report has some student information
     // and verifies no crashes
 
-    return false; // TODO: return return true if all tests pass, false otherwise
+    return true;
   }
 }

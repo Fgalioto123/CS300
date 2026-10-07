@@ -1,12 +1,38 @@
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall 2026
+ * Assignment: Program 4
+ * Citations: Stack overflow for isBlank vs isEmpty
+ * https://stackoverflow.com/questions/23419087/stringutils-isblank-vs-string-isempty
+ */
+
 import java.util.ArrayList;
 
+/**
+ * the gradebook class keeps a list of students which then it can access and use
+ * for different methods like getting a class average or a report.
+ * 
+ */
 public class GradeBook {
   private ArrayList<Student> students;
 
+  /**
+   * constructor for the class
+   */
   public GradeBook() {
     this.students = new ArrayList<>();
   }
 
+  /**
+   * this method adds a student after checking to make sure the student exists. It
+   * also checks by going through each current student that there is no
+   * duplication before adding.
+   * 
+   * @param student - the student wanting to be added
+   * @throws DuplicateStudentException - thrown if the student already exists in
+   *                                   the students list
+   */
   public void addStudent(Student student) throws DuplicateStudentException {
     if (student == null) {
       throw new IllegalArgumentException();
@@ -21,6 +47,16 @@ public class GradeBook {
     students.add(student);
   }
 
+  /**
+   * finds a student using their id by going through the current students list. if
+   * it is found then it gets returned if not an exception gets thrown. Also
+   * checks to make sure the id is not blank or null
+   * 
+   * @param studentId - the id of the student
+   * @return - the student that is trying to be found if correctly found
+   * @throws StudentNotFoundException - if the student is not found it throws this
+   *                                  exception
+   */
   public Student findStudent(String studentId) throws StudentNotFoundException {
     if (studentId == null || studentId.isBlank()) {
       throw new IllegalArgumentException();
@@ -36,6 +72,13 @@ public class GradeBook {
         " find with that ID does not exist");
   }
 
+  /**
+   * this method gets the class average by adding up all the grades for each
+   * student then dividing it by the amount of grades that were added
+   * 
+   * @return - returns the average grade if all went succesfully
+   * @throws NoGradesException - thrown if all the students dont have any grades
+   */
   public double getClassAverage() throws NoGradesException {
     if (students.isEmpty()) {
       throw new NoGradesException("There are no students when you are trying " +
@@ -66,6 +109,13 @@ public class GradeBook {
     return new ArrayList<>(students);
   }
 
+  /**
+   * this method returns the number of honors students by going through each
+   * student in the students list and checking if there grade average is above or
+   * equal to 90.0.
+   * 
+   * @return - returns the list of students that are honors
+   */
   public ArrayList<Student> getHonorsStudents() {
     ArrayList<Student> honorsStudents = new ArrayList<>();
 
@@ -75,14 +125,20 @@ public class GradeBook {
           honorsStudents.add(s);
         }
       } catch (NoGradesException e) {
-        System.out.println("Student having no grades but trying to get avg caught." +
-            " Resuming honors student calculation.");
+        // System.out.println("Student has no grades but trying to get avg caught." +
+        // " Resuming honors student calculation.");
       }
     }
 
     return honorsStudents;
   }
 
+  /**
+   * generates a report by re creating the same string variable over and over
+   * again. uses \n to create a new line for each string added.
+   * 
+   * @return - returns the string which is the report.
+   */
   public String generateReport() {
     String report = "=== GRADEBOOK REPORT ===";
 
@@ -108,7 +164,7 @@ public class GradeBook {
     ArrayList<Student> honorStudents = getHonorsStudents();
     report += "\nHonors Students (A average): " + honorStudents.size();
     for (Student s : honorStudents) {
-      System.out.println(" - " + s.getName());
+      report += "\n - " + s.getName();
     }
 
     report += "\n================";
