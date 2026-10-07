@@ -56,6 +56,9 @@ public class GradeBookTester {
     try {
       Student student = new Student("Fox", "001");
       student.addGrade(91.00);
+      if (student.getGrades().size() != 1) {
+        throw new Exception();
+      }
       System.out.println("Correctly added grade");
     } catch (Exception e) {
       System.out.println("Caught an error trying to add a grade");
@@ -170,7 +173,10 @@ public class GradeBookTester {
     }
 
     try {
-      Student newStudent = gradeBook.findStudent("001");
+      Student newStudent = gradeBook.findStudent("002");
+      if (!newStudent.getName().equals("Bob")) {
+        throw new IllegalArgumentException();
+      }
     } catch (IllegalArgumentException e) {
       System.out.println("The id number was either blank or null(incorrect)");
       return false;
@@ -340,8 +346,8 @@ public class GradeBookTester {
       double avg = gradeBook.getClassAverage();
 
       try {
-        GradeBook testBook = new GradeBook();
-        testBook.getClassAverage();
+        GradeBook testBookTwo = new GradeBook();
+        testBookTwo.getClassAverage();
         System.out.println("Ran getClassAverage method and it did not " +
             " return an error when it should have on an empty students array");
         return false;
@@ -355,6 +361,9 @@ public class GradeBookTester {
       }
 
       System.out.println(gradeBook.generateReport());
+      if (gradeBook.getAllStudents().isEmpty()) {
+        return false;
+      }
       if (gradeBook.generateReport().isBlank()) {
         System.out.println("Gradebook returned empty when it should have not");
         return false;
@@ -373,9 +382,6 @@ public class GradeBookTester {
       System.out.println("No grades were found for any of the students (incorrect)");
       return false;
     }
-
-    // TODO: Calls generateReport(), verifies report has some student information
-    // and verifies no crashes
 
     return true;
   }

@@ -145,6 +145,9 @@ public class GradeBook {
    * @return - returns the string which is the report.
    */
   public String generateReport() {
+    if (students.size() == 0) {
+      return null;
+    }
     String report = "=== GRADEBOOK REPORT ===";
 
     if (students.isEmpty()) {
@@ -152,9 +155,9 @@ public class GradeBook {
     }
 
     int totalStudents = students.size();
-    report += "\nTotal Students: " + totalStudents;
-    report += "\nStudent Details: ";
-    report += "\n================  ";
+    report += "\nTotal Students:" + totalStudents;
+    report += "\nStudent Details:";
+    report += "\n================";
     for (Student stud : students) {
       report += "\n" + stud.toString();
     }
@@ -164,6 +167,7 @@ public class GradeBook {
       classAverage = getClassAverage();
       report += "\nClass Average: " + classAverage;
     } catch (NoGradesException e) {
+      System.out.println("got error when getting grades");
     }
 
     ArrayList<Student> honorStudents = getHonorsStudents();
