@@ -156,7 +156,7 @@ public class GradeBook {
     }
 
     int totalStudents = students.size();
-    report += "\nTotal Students:" + totalStudents;
+    report += "\nTotal Students: " + totalStudents;
     report += "\nStudent Details:";
     report += "\n================";
     for (Student stud : students) {
