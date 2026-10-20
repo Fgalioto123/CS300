@@ -97,9 +97,6 @@ public class DinoParkTester {
       allTestsPassed = false;
     }
 
-    System.out.println("!! This tester method has not been completed !!");
-    allTestsPassed = false;
-
     System.out.println();
     return allTestsPassed;
   }
@@ -141,27 +138,30 @@ public class DinoParkTester {
     System.out.println("Testing TRex canCoexistWith...");
     boolean allTestsPassed = true;
 
-    // Uncomment once you have added the TRex class:
-    // TRex trex = new TRex("trex1", "Sue", 24);
+    TRex trex = new TRex("trex1", "Sue", 24);
 
     // TODO: Test calling canCoexistWith any other dinosaur. Should return false
+    Spinosaurus spiny = new Spinosaurus("spiny1", "spiny", 21);
+    boolean trexCoexistWithItself = trex.canCoexistWith(spiny);
+    if (trexCoexistWithItself) {
+      System.out.println("TRex canCoexistWith incorrect for case: "
+          + "Can coexist with spiny.\n"
+          + "Expected: false\n"
+          + "Actual: true");
+      allTestsPassed = false;
+    }
 
     // PROVIDED SCENARIO: Test calling canCoexistWith on itself. Should return true
     // Uncomment once you have added the TRex class:
-    /*
-     * boolean trexCoexistWithItself = trex.canCoexistWith(trex);
-     * if (!trexCoexistWithItself) {
-     * System.out.println("TRex canCoexistWith incorrect for case: "
-     * + "Can coexist with itself.\n"
-     * + "Expected: true\n"
-     * + "Actual: false");
-     * allTestsPassed = false;
-     * }
-     */
 
-    // TODO: remove these two lines when you complete this tester method
-    System.out.println("!! This tester method has not been completed !!");
-    allTestsPassed = false;
+    trexCoexistWithItself = trex.canCoexistWith(trex);
+    if (!trexCoexistWithItself) {
+      System.out.println("TRex canCoexistWith incorrect for case: "
+          + "Can coexist with itself.\n"
+          + "Expected: true\n"
+          + "Actual: false");
+      allTestsPassed = false;
+    }
 
     System.out.println();
     return allTestsPassed;
@@ -171,13 +171,29 @@ public class DinoParkTester {
     System.out.println("Testing Triceratops canCoexistWith...");
     boolean allTestsPassed = true;
 
+    Triceratops triny = new Triceratops("Triny1", "Triny", 12);
+
+    Spinosaurus spiny = new Spinosaurus("spiny1", "spiny", 21);
+    boolean trinyCoexistWithItself = triny.canCoexistWith(spiny);
+    if (trinyCoexistWithItself) {
+      System.out.println("Triceratops canCoexistWith incorrect for case: "
+          + "Can coexist with spiny.\n"
+          + "Expected: false\n"
+          + "Actual: true");
+      allTestsPassed = false;
+    }
     // TODO: Test where other Dinosaur has food type MEAT. Should return false
 
     // TODO: Test where other Dinosaur has food type PLANTS. Should return true
-
-    // TODO: remove these two lines when you complete this tester method
-    System.out.println("!! This tester method has not been completed !!");
-    allTestsPassed = false;
+    Brachiosaurus brachy = new Brachiosaurus("brachy1", "brachy", 5);
+    trinyCoexistWithItself = triny.canCoexistWith(brachy);
+    if (!trinyCoexistWithItself) {
+      System.out.println("Triceratops canCoexistWith incorrect for case: "
+          + "Can coexist with brachy.\n"
+          + "Expected: true\n"
+          + "Actual: false");
+      allTestsPassed = false;
+    }
 
     System.out.println();
     return allTestsPassed;
@@ -188,19 +204,51 @@ public class DinoParkTester {
     boolean allTestsPassed = true;
 
     // TODO: Test calling canCoexistWith on itself. Should return true
+    Spinosaurus spiny = new Spinosaurus("spiny1", "spiny", 21);
+    boolean spinyCoexistWithItself = spiny.canCoexistWith(spiny);
+    if (!spinyCoexistWithItself) {
+      System.out.println("Spiny canCoexistWith incorrect for case: "
+          + "Can coexist with spiny.\n"
+          + "Expected: true\n"
+          + "Actual: false");
+      allTestsPassed = false;
+    }
 
     // TODO: Test calling canCoexistWith on a different Spinosaurus. Should return
     // true
+    Spinosaurus spiny2 = new Spinosaurus("spiny2", "spiny2", 22);
+    spinyCoexistWithItself = spiny.canCoexistWith(spiny2);
+    if (!spinyCoexistWithItself) {
+      System.out.println("Spiny canCoexistWith incorrect for case: "
+          + "Can coexist with spiny2.\n"
+          + "Expected: true\n"
+          + "Actual: false");
+      allTestsPassed = false;
+    }
 
     // TODO: Test where other Dinosaur's canCoexistWith returns true. Should return
     // true.
+    Brachiosaurus brachy = new Brachiosaurus("brachy1", "brachy", 5);
+    spinyCoexistWithItself = spiny.canCoexistWith(brachy);
+    if (!spinyCoexistWithItself) {
+      System.out.println("Spiny canCoexistWith incorrect for case: "
+          + "Can coexist with brachy.\n"
+          + "Expected: true\n"
+          + "Actual: false");
+      allTestsPassed = false;
+    }
 
     // TODO: Test where other Dinosaur's canCoexistWith returns false. Should return
     // false.
-
-    // TODO: remove these two lines when you complete this tester method
-    System.out.println("!! This tester method has not been completed !!");
-    allTestsPassed = false;
+    Triceratops triny = new Triceratops("Triny1", "Triny", 12);
+    spinyCoexistWithItself = spiny.canCoexistWith(triny);
+    if (spinyCoexistWithItself) {
+      System.out.println("Spiny canCoexistWith incorrect for case: "
+          + "Can coexist with triny.\n"
+          + "Expected: false\n"
+          + "Actual: true");
+      allTestsPassed = false;
+    }
 
     System.out.println();
     return allTestsPassed;
