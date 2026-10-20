@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "DinoParkTester",
+      "request": "launch",
+      "mainClass": "DinoParkTester",
+      "projectName": "CS300_fe3d2b4"
+    },
+    {
+      "type": "java",
       "name": "BankingSystemTester",
       "request": "launch",
       "mainClass": "BankingSystemTester",
