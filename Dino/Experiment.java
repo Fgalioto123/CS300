@@ -1,3 +1,11 @@
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall term 2026
+ * Assignment: Program 05
+ * Citations: None
+ */
+
 /**
  * Represents a scientific experiment or research project within the facility.
  *

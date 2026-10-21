@@ -1,5 +1,13 @@
 import java.util.ArrayList;
 
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall term 2026
+ * Assignment: Program 05
+ * Citations: None
+ */
+
 /**
  * Represents an educational tour through the park's research facilities.
  *
@@ -65,7 +73,7 @@ public class LabTour implements SafetyCheckable {
   public int countHumanSafetyViolations() {
     int total = visitors;
     for (Experiment experiment : activeExperiments) {
-      visitors += experiment.getStaff();
+      total += experiment.getStaff();
     }
 
     return total > LAB_CAPACITY ? 1 : 0;
