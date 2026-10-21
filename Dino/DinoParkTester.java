@@ -345,22 +345,31 @@ public class DinoParkTester {
     try {
       habitat.removeDinosaur(null);
       allTestsPassed = false;
-    } catch (Exception e) {
+    } catch (IllegalArgumentException e) {
       System.out.println("succesfsully caught exeption");
+    } catch (Exception e) {
+      System.out.println("caught unsuccsefully");
+      allTestsPassed = false;
     }
 
     try {
       habitat.removeDinosaur("");
       allTestsPassed = false;
-    } catch (Exception e) {
+    } catch (IllegalArgumentException e) {
       System.out.println("succesfsully caught exeption");
+    } catch (Exception e) {
+      System.out.println("unsucefuly caught");
+      allTestsPassed = false;
     }
 
     try {
       habitat.removeDinosaur(" ");
       allTestsPassed = false;
-    } catch (Exception e) {
+    } catch (IllegalArgumentException e) {
       System.out.println("succesfsully caught exeption");
+    } catch (Exception e) {
+      System.out.println("unsucefuoly caught");
+      allTestsPassed = false;
     }
 
     // TODO: Test trying to remove dino that doesn't exist. Should throw
