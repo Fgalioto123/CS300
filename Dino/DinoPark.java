@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * also generates a safety report
  */
 public class DinoPark {
-  ArrayList<SafetyCheckable> safetyCheckables = new ArrayList<>();
+  private final ArrayList<SafetyCheckable> safetyCheckables = new ArrayList<>();
 
   /**
    * adds stuff to list
@@ -37,10 +37,10 @@ public class DinoPark {
   public String generateSafetyReport() {
     String report = "=== SAFETY REPORT ===\n";
 
-    for (SafetyCheckable s : safetyCheckables) {
-      report += s.toString();
-      report += "Human Safety Violations: " + s.countHumanSafetyViolations();
-      report += "\nDinosaur Safety Violations: " + s.countDinoSafetyViolations() + "\n";
+    for (SafetyCheckable safety : safetyCheckables) {
+      report += safety.toString();
+      report += "Human Safety Violations: " + safety.countHumanSafetyViolations();
+      report += "\nDinosaur Safety Violations: " + safety.countDinoSafetyViolations() + "\n";
     }
 
     return report;

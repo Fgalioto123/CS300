@@ -76,7 +76,7 @@ public class LabTour implements SafetyCheckable {
       total += experiment.getStaff();
     }
 
-    return total > LAB_CAPACITY ? 1 : 0;
+    return total >= LAB_CAPACITY ? 1 : 0;
 
   }
 

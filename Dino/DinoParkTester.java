@@ -62,7 +62,7 @@ public class DinoParkTester {
 
     // PROVIDED SCENARIO (Normal Case): Test with total people UNDER capacity
     // Total people is 9, capacity is 10. Safety violations should be 0
-    LabTour labTourUnderCapacity = new LabTour("Mr. DNA", 4);
+    LabTour labTourUnderCapacity = new LabTour("Mr. DNA", 5);
     labTourUnderCapacity.addExperiment(new Experiment("Hatching raptors", 3));
     labTourUnderCapacity.addExperiment(new Experiment("Genome splicing", 2));
 
@@ -344,6 +344,13 @@ public class DinoParkTester {
     // TODO: Test trying to remove null. Should throw IllegalArgumentException
     try {
       habitat.removeDinosaur(null);
+      allTestsPassed = false;
+    } catch (Exception e) {
+      System.out.println("succesfsully caught exeption");
+    }
+
+    try {
+      habitat.removeDinosaur("");
       allTestsPassed = false;
     } catch (Exception e) {
       System.out.println("succesfsully caught exeption");

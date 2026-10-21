@@ -119,10 +119,10 @@ public class Habitat implements SafetyCheckable {
       throw new IllegalArgumentException();
     }
 
-    for (Dinosaur d : dinosaurs) {
-      if (d.getId().equals(dinoId)) {
-        dinosaurs.remove(d);
-        return d;
+    for (Dinosaur dinosaur : dinosaurs) {
+      if (dinosaur.getId().equals(dinoId)) {
+        dinosaurs.remove(dinosaur);
+        return dinosaur;
       }
     }
     throw new DinoNotFoundException("The id is" +
@@ -168,8 +168,8 @@ public class Habitat implements SafetyCheckable {
     int totalViolations = 0;
     int totalAreaRequired = 0;
 
-    for (Dinosaur d : dinosaurs) {
-      totalAreaRequired += d.getPreferredArea();
+    for (Dinosaur dinosaur : dinosaurs) {
+      totalAreaRequired += dinosaur.getPreferredArea();
     }
     if (totalAreaRequired > area) {
       totalViolations++;
@@ -198,7 +198,7 @@ public class Habitat implements SafetyCheckable {
   @Override
   public String toString() {
     StringBuilder habitatString = new StringBuilder(String.format(
-        "Habitat: %s, area=%f m^2, parkRangers=%d\n",
+        "Habitat: %s, area=%f m^2, parkRangers=%dinosaur\n",
         this.name,
         this.area,
         this.parkRangers));
