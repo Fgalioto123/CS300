@@ -356,6 +356,13 @@ public class DinoParkTester {
       System.out.println("succesfsully caught exeption");
     }
 
+    try {
+      habitat.removeDinosaur(" ");
+      allTestsPassed = false;
+    } catch (Exception e) {
+      System.out.println("succesfsully caught exeption");
+    }
+
     // TODO: Test trying to remove dino that doesn't exist. Should throw
     // DinoNotFoundException
     try {
