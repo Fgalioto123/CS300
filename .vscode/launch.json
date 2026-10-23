@@ -6,6 +6,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Fib",
+      "request": "launch",
+      "mainClass": "lectureRecursion.Fib",
+      "projectName": "CS300_d67774a3"
+    },
+    {
+      "type": "java",
+      "name": "doubling",
+      "request": "launch",
+      "mainClass": "doubling",
+      "projectName": "CS300_d67774a3"
+    },
+    {
+      "type": "java",
       "name": "DinoParkTester",
       "request": "launch",
       "mainClass": "DinoParkTester",
