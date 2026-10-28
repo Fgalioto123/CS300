@@ -169,8 +169,9 @@ public class DinoMonitorTesting {
       int stations = random.nextInt(1, 6);
       int researchers = random.nextInt(1, 11);
       int hires = random.nextInt(1, researchers + 1);
-      ResearcherList list = new ResearcherList();
+      // ResearcherList list = new ResearcherList();
 
+      boolean[][] arr = new boolean[researchers][stations];
       for (int j = 0; j < researchers; j++) {
         boolean[] boolArr = new boolean[stations];
 
@@ -179,10 +180,10 @@ public class DinoMonitorTesting {
             boolArr[k] = true;
           }
         }
-        Researcher researcher = new Researcher(boolArr);
-        list.copyAndAddResearcher(researcher);
+        arr[j] = boolArr;
       }
 
+      ResearcherList list = DinoMonitorTestingUtilities.makeResearcherList(arr);
       ArrayList<ResearcherList> correctList = DinoMonitorTestingUtilities.allOptimalSolutions(
           list, hires);
 
@@ -270,8 +271,10 @@ public class DinoMonitorTesting {
       int stations = random.nextInt(1, 6);
       int researchers = random.nextInt(1, 11);
       int minStations = random.nextInt(1, stations + 1);
-      ResearcherList list = new ResearcherList();
+      // ResearcherList list = new ResearcherList();
 
+      boolean[][] arr = new boolean[researchers][stations];
+      int[] salaries = new int[researchers];
       for (int j = 0; j < researchers; j++) {
         boolean[] boolArr = new boolean[stations];
 
@@ -281,10 +284,11 @@ public class DinoMonitorTesting {
           }
         }
         int salary = random.nextInt(1, researchers / 2 + 2);
-        Researcher researcher = new Researcher(boolArr, salary);
-        list.copyAndAddResearcher(researcher);
+        arr[j] = boolArr;
+        salaries[j] = salary;
       }
 
+      ResearcherList list = DinoMonitorTestingUtilities.makeResearcherList(arr, salaries);
       ArrayList<ResearcherList> correctList = DinoMonitorTestingUtilities.allOptimalSolutions(
           list, minStations);
 
