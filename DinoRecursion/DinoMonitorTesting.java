@@ -1,4 +1,10 @@
-// TODO Add a file header here
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall 2026
+ * Assignment: Program 6
+ * Citations: Samuel Benardo - talked over problem 2 a lot with him and wrote together on the white board to solve it.
+ */
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -39,6 +45,12 @@ public class DinoMonitorTesting {
         greedyMonitoringRecursiveTest();
   }
 
+  /**
+   * tests when hires is 0 so should instantly return an empty ResearcherList
+   * which then returns true
+   * 
+   * @return - true or false
+   */
   public static boolean greedyMonitoringBaseTest() {
     // PROVIDED as a model for how to write tests with the provided utilities
 
@@ -60,6 +72,12 @@ public class DinoMonitorTesting {
     return DinoMonitorTestingUtilities.compareResearcherLists(expectedSolution, actualSolution);
   }
 
+  /**
+   * tests the greedyMonitoringRecursive method with 2 hires and uses methods from
+   * monotiring utilities
+   * 
+   * @return - true or false if the method works
+   */
   public static boolean greedyMonitoringRecursiveTest() {
     ResearcherList candidates = DinoMonitorTestingUtilities.makeResearcherList(new boolean[][] {
         { true, false, false, false }, // Researcher 0: covers station 0
@@ -85,6 +103,12 @@ public class DinoMonitorTesting {
 
   }
 
+  /**
+   * tests the method with 0 hires which should give a empty ResearchList which
+   * would then return true
+   * 
+   * @return - true or false
+   */
   public static boolean optimalMonitoringBaseTest() {
     ResearcherList candidates = DinoMonitorTestingUtilities.makeResearcherList(new boolean[][] {
         { true, false, false, false }, // Researcher 0: covers station 0
@@ -101,6 +125,12 @@ public class DinoMonitorTesting {
     return DinoMonitorTestingUtilities.compareResearcherLists(correctList, actualSolution);
   }
 
+  /**
+   * tests the recursive method with hires being 2. should return one of the
+   * possible optimal solutions
+   * 
+   * @return - true or false
+   */
   public static boolean optimalMonitoringRecursiveTest() {
     ResearcherList candidates = DinoMonitorTestingUtilities.makeResearcherList(new boolean[][] {
         { true, false, false, false }, // Researcher 0: covers station 0
@@ -117,6 +147,12 @@ public class DinoMonitorTesting {
     return DinoMonitorTestingUtilities.compareResearcherLists(correctList, actualSolution);
   }
 
+  /**
+   * tests the recursive method by testing 120 different versions to make sure
+   * everything works
+   * 
+   * @return - true or false
+   */
   public static boolean optimalMonitoringFuzzTest() {
     Random random = new Random();
     boolean pass = true;

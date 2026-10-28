@@ -1,4 +1,10 @@
-// TODO Add a file header here
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall 2026
+ * Assignment: Program 6
+ * Citations: Samuel Benardo - talked over problem 2 a lot with him and wrote together on the white board to solve it.
+ */
 
 import java.util.ArrayList;
 
