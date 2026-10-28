@@ -3,7 +3,8 @@
  * Email: fgalioto@wisc.edu
  * Course: CS300, Fall 2026
  * Assignment: Program 6
- * Citations: Samuel Benardo - talked over problem 2 a lot with him and wrote together on the white board to solve it.
+ * Citations: Samuel Benardo - talked over problem 2 a lot with him
+ *  and wrote together on the white board to solve it.
  */
 
 import java.util.ArrayList;
@@ -98,7 +99,8 @@ public class DinoMonitor {
    * @return the optimal team of researchers (union of hired and optimally
    *         selected)
    */
-  public static ResearcherList optimalMonitoring(ResearcherList candidates, ResearcherList hired, int hiresLeft) {
+  public static ResearcherList optimalMonitoring(ResearcherList candidates,
+      ResearcherList hired, int hiresLeft) {
     if (hiresLeft == 0) {
       return hired;
     }
@@ -138,7 +140,11 @@ public class DinoMonitor {
    * @return the lowest-cost team meeting the coverage requirement, or null if
    *         impossible
    */
-  public static ResearcherList minCostMonitoring(ResearcherList candidates, ResearcherList hired, int minStations) {
+  public static ResearcherList minCostMonitoring(ResearcherList candidates,
+      ResearcherList hired, int minStations) {
+    if (candidates.isEmpty() && hired.numCoveredStations() >= minStations) {
+      return hired;
+    }
     if (candidates.isEmpty()) {
       return null;
     }
