@@ -190,7 +190,8 @@ public class DinoMonitorTesting {
           new ResearcherList(), hires);
 
       // Use the testing utilities provided to compare the contents of these two lists
-      boolean bool = DinoMonitorTestingUtilities.compareResearcherLists(correctList, actualSolution);
+      boolean bool = DinoMonitorTestingUtilities.compareResearcherLists(
+          correctList, actualSolution);
       if (bool == false) {
         return bool;
       }
@@ -279,7 +280,7 @@ public class DinoMonitorTesting {
             boolArr[k] = true;
           }
         }
-        int salary = random.nextInt(0, researchers / 2 + 1);
+        int salary = random.nextInt(1, researchers / 2 + 2);
         Researcher researcher = new Researcher(boolArr, salary);
         list.copyAndAddResearcher(researcher);
       }
@@ -291,7 +292,8 @@ public class DinoMonitorTesting {
           new ResearcherList(), minStations);
 
       // Use the testing utilities provided to compare the contents of these two lists
-      boolean bool = DinoMonitorTestingUtilities.compareResearcherLists(correctList, actualSolution);
+      boolean bool = DinoMonitorTestingUtilities.compareResearcherLists(
+          correctList, actualSolution);
       if (bool == false) {
         return bool;
       }
