@@ -1,14 +1,23 @@
 1. Do you feel confident in your ability to write recursive functions
 after completing this project? What were any challenges that you
 faced while wrapping your head around recursion? (2-3 sentences)
-TODO
+Recursion has always been the biggest issue of mine however I feel like I have a slightly better
+understanding of it now. The second question was very hard for me and took a lot of time thinking 
+to find a solution for it. Overall I still don't feel too confident with more complex recursion
+but a lot better than before and I feel like with simple recursion I should be fine.
 
 2. Describe some of the pros and cons of using recursion versus
 iterative approaches. If you had a choice, would you rather implement
 this project using recursion, or with an iterative approach? (2-3 sentences)
-TODO
+Recusion often times make this a lot more complicating for me. It also a lot of times
+can be alot more memory ineficent and time complexity ineficent. I would 
+used recursion for this assignment not because I like it more of believe it is
+easier but because I needed more practice with it.
 
 3. Was the assignment too long? Which parts did you enjoy, and
 which parts do you think we can remove without affecting the project's
 learning objectives? (2-3 sentences)
-TODO
+Overall the assingment took me around 6 hours which was probably the longest one yet. 
+It was also my favorite one because I enjoy this type of problem solving and critical thinking.
+Maybe in the future having a hint or extra guidance for some of the problems but Maybe
+I just struggled with it more than everyboy else.

@@ -139,7 +139,32 @@ public class DinoMonitor {
    *         impossible
    */
   public static ResearcherList minCostMonitoring(ResearcherList candidates, ResearcherList hired, int minStations) {
-    // TODO
-    return null;
+    if (candidates.isEmpty()) {
+      return null;
+    }
+    if (hired.numCoveredStations() >= minStations) {
+      return hired;
+    }
+    // System.out.println(hired.numCoveredStations());
+
+    ResearcherList bestResearcherList = null;
+    int cheapest = candidates.totalAnnualCost();
+    for (Researcher researcher : candidates) {
+      ResearcherList newCandidates = candidates.copyAndRemoveResearcher(researcher);
+      ResearcherList newHired = hired.copyAndAddResearcher(researcher);
+      if (newHired.numCoveredStations() >= minStations && newHired.totalAnnualCost() < cheapest) {
+        cheapest = newHired.totalAnnualCost();
+        bestResearcherList = newHired;
+      }
+
+      ResearcherList recursedHired = minCostMonitoring(newCandidates, newHired, minStations);
+      if (recursedHired != null && recursedHired.numCoveredStations() >= minStations
+          && recursedHired.totalAnnualCost() < cheapest) {
+        cheapest = recursedHired.totalAnnualCost();
+        bestResearcherList = recursedHired;
+      }
+
+    }
+    return bestResearcherList;
   }
 }
