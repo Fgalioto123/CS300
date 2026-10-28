@@ -1,5 +1,7 @@
 // TODO Add a file header here
 
+import java.util.ArrayList;
+
 /**
  * This class contains methods to solve variants of the dinosaur monitoring
  * coverage problem:
@@ -25,6 +27,10 @@ public class DinoMonitor {
    */
   public static ResearcherList greedyMonitoring(ResearcherList candidates, ResearcherList hired,
       int hiresLeft) {
+    if (candidates == null) {
+      return hired;
+    }
+
     if (hiresLeft == 0) {
       return hired;
     }
@@ -87,8 +93,27 @@ public class DinoMonitor {
    *         selected)
    */
   public static ResearcherList optimalMonitoring(ResearcherList candidates, ResearcherList hired, int hiresLeft) {
-    // TODO
-    return null;
+    if (hiresLeft == 0) {
+      return hired;
+    }
+    if (candidates.isEmpty()) {
+      return hired;
+    }
+
+    ResearcherList bestResearcherList = hired;
+    int bestTotal = hired.numCoveredStations();
+    for (Researcher researcher : candidates) {
+      ResearcherList newCandidates = candidates.copyAndRemoveResearcher(researcher);
+      ResearcherList newHired = hired.copyAndAddResearcher(researcher);
+
+      ResearcherList recursedHired = optimalMonitoring(newCandidates, newHired, hiresLeft - 1);
+      if (recursedHired.numCoveredStations() > bestTotal) {
+        bestResearcherList = recursedHired;
+        bestTotal = recursedHired.numCoveredStations();
+      }
+
+    }
+    return bestResearcherList;
   }
 
   /**

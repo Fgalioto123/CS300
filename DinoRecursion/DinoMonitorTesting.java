@@ -32,10 +32,10 @@ public class DinoMonitorTesting {
     System.out.println("Overall: " + (allPass ? "Pass" : "Failed!"));
   }
 
-
-  ////////////////////////////// GREEDY MONITORING TESTS ///////////////////////////////////
+  ////////////////////////////// GREEDY MONITORING TESTS
+  ////////////////////////////// ///////////////////////////////////
   public static boolean testGreedyMonitoring() {
-    return greedyMonitoringBaseTest() && 
+    return greedyMonitoringBaseTest() &&
         greedyMonitoringRecursiveTest();
   }
 
@@ -43,53 +43,115 @@ public class DinoMonitorTesting {
     // PROVIDED as a model for how to write tests with the provided utilities
 
     // Create a list of potential candidates with various station coverage
-    ResearcherList candidates =
-        DinoMonitorTestingUtilities.makeResearcherList(new boolean[][] {
-          {true, false, false, false},    // Researcher 0: covers station 0
-          {false, true, true, true},      // Researcher 1: covers stations 1,2,3
-          {true, false, true, false},     // Researcher 2: covers stations 0,2
-          {true, true, false, false}},    // Researcher 3: covers stations 0,1
-          new int[]{20, 25, 30, 15});     // Researcher salaries: $20k, $25k, $30k, $15k
+    ResearcherList candidates = DinoMonitorTestingUtilities.makeResearcherList(new boolean[][] {
+        { true, false, false, false }, // Researcher 0: covers station 0
+        { false, true, true, true }, // Researcher 1: covers stations 1,2,3
+        { true, false, true, false }, // Researcher 2: covers stations 0,2
+        { true, true, false, false } }, // Researcher 3: covers stations 0,1
+        new int[] { 20, 25, 30, 15 }); // Researcher salaries: $20k, $25k, $30k, $15k
 
     // For the base case, we expect no one to be added to the list
     ResearcherList expectedSolution = new ResearcherList();
 
     // Call the method with hiresLeft at 0 (base case)
-    ResearcherList actualSolution =
-        DinoMonitor.greedyMonitoring(candidates, new ResearcherList(), 0);
+    ResearcherList actualSolution = DinoMonitor.greedyMonitoring(candidates, new ResearcherList(), 0);
 
     // Use the testing utilities provided to compare the contents of these two lists
     return DinoMonitorTestingUtilities.compareResearcherLists(expectedSolution, actualSolution);
   }
 
   public static boolean greedyMonitoringRecursiveTest() {
-    // TODO
-    return false;
+    ResearcherList candidates = DinoMonitorTestingUtilities.makeResearcherList(new boolean[][] {
+        { true, false, false, false }, // Researcher 0: covers station 0
+        { false, true, true, true }, // Researcher 1: covers stations 1,2,3
+        { true, false, true, false }, // Researcher 2: covers stations 0,2
+        { true, true, false, false } }, // Researcher 3: covers stations 0,1
+        new int[] { 20, 25, 30, 15 }); // Researcher salaries: $20k, $25k, $30k, $15k
+
+    ArrayList<ResearcherList> correctList = DinoMonitorTestingUtilities.allOptimalSolutions(candidates, 2);
+
+    ResearcherList actualSolution = DinoMonitor.greedyMonitoring(candidates, new ResearcherList(), 2);
+
+    // Use the testing utilities provided to compare the contents of these two lists
+    return DinoMonitorTestingUtilities.compareResearcherLists(correctList, actualSolution);
   }
 
-  ////////////////////////////// OPTIMAL MONITORING TESTS //////////////////////////////////
+  ////////////////////////////// OPTIMAL MONITORING TESTS
+  ////////////////////////////// //////////////////////////////////
   public static boolean testOptimalMonitoring() {
-    return optimalMonitoringBaseTest() && 
-        optimalMonitoringRecursiveTest() && 
+    return optimalMonitoringBaseTest() &&
+        optimalMonitoringRecursiveTest() &&
         optimalMonitoringFuzzTest();
+
   }
 
   public static boolean optimalMonitoringBaseTest() {
-    // TODO
-    return false;
+    ResearcherList candidates = DinoMonitorTestingUtilities.makeResearcherList(new boolean[][] {
+        { true, false, false, false }, // Researcher 0: covers station 0
+        { false, true, true, true }, // Researcher 1: covers stations 1,2,3
+        { true, false, true, false }, // Researcher 2: covers stations 0,2
+        { true, true, false, false } }, // Researcher 3: covers stations 0,1
+        new int[] { 20, 25, 30, 15 }); // Researcher salaries: $20k, $25k, $30k, $15k
+
+    ArrayList<ResearcherList> correctList = DinoMonitorTestingUtilities.allOptimalSolutions(candidates, 0);
+
+    ResearcherList actualSolution = DinoMonitor.optimalMonitoring(candidates, new ResearcherList(), 0);
+
+    // Use the testing utilities provided to compare the contents of these two lists
+    return DinoMonitorTestingUtilities.compareResearcherLists(correctList, actualSolution);
   }
 
   public static boolean optimalMonitoringRecursiveTest() {
-    // TODO
-    return false;
+    ResearcherList candidates = DinoMonitorTestingUtilities.makeResearcherList(new boolean[][] {
+        { true, false, false, false }, // Researcher 0: covers station 0
+        { false, true, true, true }, // Researcher 1: covers stations 1,2,3
+        { true, false, true, false }, // Researcher 2: covers stations 0,2
+        { true, true, false, false } }, // Researcher 3: covers stations 0,1
+        new int[] { 20, 25, 30, 15 }); // Researcher salaries: $20k, $25k, $30k, $15k
+
+    ArrayList<ResearcherList> correctList = DinoMonitorTestingUtilities.allOptimalSolutions(candidates, 2);
+
+    ResearcherList actualSolution = DinoMonitor.optimalMonitoring(candidates, new ResearcherList(), 2);
+
+    // Use the testing utilities provided to compare the contents of these two lists
+    return DinoMonitorTestingUtilities.compareResearcherLists(correctList, actualSolution);
   }
 
   public static boolean optimalMonitoringFuzzTest() {
-    // TODO
-    return false;
+    Random random = new Random();
+    boolean pass = true;
+
+    for (int i = 0; i < 120; i++) {
+      int stations = random.nextInt(1, 6);
+      int researchers = random.nextInt(1, 11);
+      int hires = random.nextInt(1, researchers + 1);
+      ResearcherList list = new ResearcherList();
+
+      for (int j = 0; j < researchers; j++) {
+        boolean[] boolArr = new boolean[stations];
+
+        for (int k = 0; k < stations; k++) {
+          if (random.nextInt(1, 3) == 1) {
+            boolArr[k] = true;
+          }
+        }
+        Researcher researcher = new Researcher(boolArr);
+        list.copyAndAddResearcher(researcher);
+      }
+
+      ArrayList<ResearcherList> correctList = DinoMonitorTestingUtilities.allOptimalSolutions(list, hires);
+
+      ResearcherList actualSolution = DinoMonitor.optimalMonitoring(list, new ResearcherList(), hires);
+
+      // Use the testing utilities provided to compare the contents of these two lists
+      pass = DinoMonitorTestingUtilities.compareResearcherLists(correctList, actualSolution);
+    }
+
+    return pass;
   }
 
-  ////////////////////////////// MIN COST MONITORING TESTS //////////////////////////////////
+  ////////////////////////////// MIN COST MONITORING TESTS
+  ////////////////////////////// //////////////////////////////////
   public static boolean testMinCostMonitoring() {
     return minCostMonitoringBaseTest() &&
         minCostMonitoringRecursiveTest() &&
