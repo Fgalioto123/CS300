@@ -11,8 +11,10 @@
  * TaskList class holds head, tail, and size. It is the linked List containing
  * the head and tail. In this class you can add, remove, and other essential
  * things pertaining to a linked list
+ * 
+ * @param <T>
  */
-public class TaskList {
+public class TaskList implements SortedTaskListADT<Task> {
 
   /** The first node in the linked list (highest priority, earliest task). */
   private LinkedTask head;
@@ -78,6 +80,7 @@ public class TaskList {
    * 
    * @param task - the task being added
    */
+  @Override
   public void addTask(Task task) {
     // first checks to see if the task is null and if it is throws and exception
     if (task == null) {
@@ -172,6 +175,7 @@ public class TaskList {
    * @param index - index of the task being returned
    * @return - the task
    */
+  @Override
   public Task get(int index) {
     // makes sure the index is in the range and if not throws and exception
     if (index < 0 || index >= size) {
@@ -195,6 +199,7 @@ public class TaskList {
    * @param task - task being checked to see if it exists
    * @return - true or false
    */
+  @Override
   public boolean contains(Task task) {
     // traverses through the list until it finds the task and if it does not returns
     // false
@@ -221,6 +226,7 @@ public class TaskList {
    * @param index - index wanting to be removed
    * @return - the task of the index removed
    */
+  @Override
   public Task remove(int index) {
     // makes sure the index is in the range of the list
     if (index < 0 || index >= size) {
@@ -278,6 +284,7 @@ public class TaskList {
    * prints out the linked list
    * 
    * @see java.lang.Object#toString()
+   * @return - the data of the list
    */
   public String toString() {
     // checks to see if it is empty and if it is return EMPTY

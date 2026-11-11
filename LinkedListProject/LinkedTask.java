@@ -31,6 +31,9 @@ public class LinkedTask {
    * @param task - the task
    */
   public LinkedTask(Task task) {
+    if (task == null) {
+      throw new IllegalArgumentException();
+    }
     // setting the values for the contrusctor
     this.task = task;
     this.next = null;

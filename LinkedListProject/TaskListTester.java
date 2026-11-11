@@ -107,7 +107,7 @@ public class TaskListTester {
       System.out.println("ran2");
       returnValue = false;
     } catch (IllegalArgumentException e) {
-
+      System.out.println("caught");
     }
     // System.out.println(taskList);
 
