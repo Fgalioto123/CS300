@@ -53,6 +53,9 @@ public class TaskList {
   // (4) the new task belongs somewhere in the middle
   public void addTask(Task task) {
     LinkedTask linkedTask = new LinkedTask(task);
+    if (task == null) {
+      throw new IllegalArgumentException();
+    }
     if (isEmpty()) {
       head = linkedTask;
       tail = linkedTask;
