@@ -52,6 +52,9 @@ public class TaskList {
    * @return - true or false
    */
   public boolean isEmpty() {
+    // checking to see if the head is null and if it is return true else return
+    // false
+    // because if it is null then it is empty
     if (head == null) {
       return true;
     } else {
@@ -76,23 +79,32 @@ public class TaskList {
    * @param task - the task being added
    */
   public void addTask(Task task) {
-
+    // first checks to see if the task is null and if it is throws and exception
     if (task == null) {
       throw new IllegalArgumentException();
     }
+    // uses a series of If and Else Ifs to check for all the different cases
+    // the first on is if it is emtpy
     if (isEmpty()) {
+      // if it is empty then create a new LinkedTask node with the task that is wanted
+      // to be added
       LinkedTask linkedTask = new LinkedTask(task);
+      // set the head and tail to the new node and add one to the size
       head = linkedTask;
       tail = linkedTask;
       size++;
+      // next checks if the priority is High
     } else if (task.getPriority().equals(TaskPriority.HIGH)) {
+      // checks to see if there is no high already present
       if (!head.getTask().getPriority().equals(TaskPriority.HIGH)) {
-
+        // if there is not then creates a new node and sets its next to the current
+        // head\
+        // this adds the node to the front of the list and then sets the new head to it
         LinkedTask linkedTaskHead = new LinkedTask(task, head);
         head = linkedTaskHead;
         size++;
       } else {
-
+        // loops through the list until it reaches the last HIGH
         Task node = head.getTask();
         LinkedTask listNode = head;
         while (node.getPriority().equals(TaskPriority.HIGH)
@@ -101,27 +113,37 @@ public class TaskList {
           listNode = listNode.getNext();
           node = listNode.getTask();
         }
+        // once it reaches the last high it creates a new node with its next pointing to
+        // the current listNodes next node
         LinkedTask nextLinkedTask = new LinkedTask(task, listNode.getNext());
+        // then sets the current listnodes next to the new node putting the new node
+        // right after it
         listNode.setNext(nextLinkedTask);
         size++;
+        // checks to make sure the tail is not changing and if it is then set the tail
+        // to the new node
         if (tail.equals(listNode)) {
           tail = nextLinkedTask;
         }
       }
 
+      // same exact process but for the medium priority
     } else if (task.getPriority().equals(TaskPriority.MEDIUM)) {
       if (head.getTask().getPriority().equals(TaskPriority.LOW)) {
+        // checks for if there are no medium or highs in the list
         LinkedTask linkedTask = new LinkedTask(task, head);
         head = linkedTask;
         size++;
       } else {
 
+        // goes to the last medium or high if there is no medium
         LinkedTask listNode = head;
         while (listNode.getNext() != null
             && (listNode.getNext().getTask().getPriority().equals(TaskPriority.HIGH)
                 || listNode.getNext().getTask().getPriority().equals(TaskPriority.MEDIUM))) {
           listNode = listNode.getNext();
         }
+        // ads the new node to the end of the mediums/highs
         LinkedTask nextLinkedTask = new LinkedTask(task, listNode.getNext());
         listNode.setNext(nextLinkedTask);
         size++;
@@ -130,9 +152,13 @@ public class TaskList {
         }
       }
     } else {
+      // if the priority is low then just add the node to the end of the list
+      // it does this by creating a new node with the nesxt pointer to null
       LinkedTask linkedTask = new LinkedTask(task, null);
+      // it its the tailnode and sets that node to the new node created
       LinkedTask tailTask = tail;
       tailTask.setNext(linkedTask);
+      // sets the tail to the new node
       tail = linkedTask;
       size++;
     }
@@ -147,14 +173,17 @@ public class TaskList {
    * @return - the task
    */
   public Task get(int index) {
+    // makes sure the index is in the range and if not throws and exception
     if (index < 0 || index >= size) {
       throw new IndexOutOfBoundsException();
     }
 
+    // traverses through the list until it gets to the index
     LinkedTask linkedTask = head;
     for (int i = 0; i < index; i++) {
       linkedTask = linkedTask.getNext();
     }
+    // returns the task at that index
     return linkedTask.getTask();
   }
 
@@ -167,7 +196,8 @@ public class TaskList {
    * @return - true or false
    */
   public boolean contains(Task task) {
-
+    // traverses through the list until it finds the task and if it does not returns
+    // false
     LinkedTask linkedTask = head;
     for (int i = 0; i < size; i++) {
       if (linkedTask.getTask().equals(task)) {
@@ -192,27 +222,34 @@ public class TaskList {
    * @return - the task of the index removed
    */
   public Task remove(int index) {
+    // makes sure the index is in the range of the list
     if (index < 0 || index >= size) {
       throw new IndexOutOfBoundsException();
     }
     LinkedTask linkedTask = head;
+    // if the size is one then just clear it because after its removed there is
+    // nothing left
     if (size == 1) {
       clear();
       return linkedTask.getTask();
     }
+    // if it wants to remove the head then just move head up one
     if (index == 0) {
       head = linkedTask.getNext();
       size--;
       return linkedTask.getTask();
     }
 
+    // goes to the index -1 of what is wanting to be removed
     for (int i = 0; i < index - 1; i++) {
       linkedTask = linkedTask.getNext();
     }
-
+    // if its the tail then set the tail aswell
     if (tail.equals(linkedTask.getNext())) {
       tail = linkedTask;
     }
+    // skips over the next node in over to cut it out of the linked list and retuns
+    // the task getting removed
     Task returnTask = linkedTask.getNext().getTask();
     linkedTask.setNext(linkedTask.getNext().getNext());
     size--;
@@ -226,6 +263,7 @@ public class TaskList {
    * clears the linked list
    */
   public void clear() {
+    // sets all values to null or 0
     this.head = null;
     this.tail = null;
     this.size = 0;
@@ -242,10 +280,13 @@ public class TaskList {
    * @see java.lang.Object#toString()
    */
   public String toString() {
+    // checks to see if it is empty and if it is return EMPTY
     if (size == 0) {
       return "EMPTY";
     }
 
+    // crestes a blank string then adds all of the nodes to it using the nodes
+    // toString method then gets the next node and repeats
     String result = "";
     LinkedTask linkedTask = head;
     for (int i = 0; i < size; i++) {

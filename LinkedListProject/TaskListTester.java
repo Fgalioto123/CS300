@@ -23,25 +23,29 @@ public class TaskListTester {
    * @return - true or false
    */
   public static boolean testLinkedTask() {
+    // resetting the taks ID's
     Task.resetIDGenerator();
     boolean test = true;
     TaskPriority taskPriority = TaskPriority.HIGH;
     // Task taskTest = new Task("blah", taskPriority);
     try {
-
+      // tests creating a node with null as a task which correctly returns an exeption
       LinkedTask linkedTask = new LinkedTask(null, null);
-      System.out.println("turns1");
+      // System.out.println("turns1");
       test = false;
     } catch (IllegalArgumentException e) {
       // System.out.println(e.getMessage());
     }
     // TaskPriority taskPriority = TaskPriority.HIGH;
+    // creates tasks and a node that points to null and one that points to the null
+    // one
     Task taskOne = new Task("Homework", taskPriority);
     Task taskTwo = new Task("Homework Again", taskPriority);
     LinkedTask linkedTaskOne = new LinkedTask(taskOne);
     LinkedTask linkedTaskTwo = new LinkedTask(taskTwo, linkedTaskOne);
     String outputOne = "" + linkedTaskOne;
     String outputTwo = "" + linkedTaskTwo;
+    // tests to see if the output is correct
     if (outputOne.equals("HIGH: Homework (1) -> END") &&
         outputTwo.equals("HIGH: Homework Again (2) -> ")) {
       // System.out.println("correct");
@@ -70,6 +74,7 @@ public class TaskListTester {
     TaskList taskList = new TaskList();
     Task taskOne = new Task("Homework", TaskPriority.HIGH);
     taskList.addTask(taskOne);
+    // checks to see if the size and and its not empty and the right task gets added
     if (taskList.size() != 1 || taskList.isEmpty() == true
         || taskList.get(0).equals(taskOne) == false) {
       System.out.println("ran4");
@@ -80,12 +85,15 @@ public class TaskListTester {
     Task taskThree = new Task("Low Homework", TaskPriority.LOW);
     taskList.addTask(taskTwo);
     taskList.addTask(taskThree);
+    // makes sure that the medium and lows get inserted correctly to the middle and
+    // end of the list
     if (taskList.get(1).equals(taskTwo) == false
         || taskList.get(2).equals(taskThree) == false) {
       System.out.println("ran3");
       returnValue = false;
     }
-
+    // makes sure that when multiple of the same type gets added the new one goes to
+    // the end
     Task taskFour = new Task("Homework Two", TaskPriority.HIGH);
     taskList.addTask(taskFour);
     if (taskList.get(1).equals(taskFour) == false && taskList.size() == 4) {
@@ -94,6 +102,7 @@ public class TaskListTester {
     }
 
     try {
+      // makes sure a expetion passes if you try to add a null task to the list
       taskList.addTask(null);
       System.out.println("ran2");
       returnValue = false;
@@ -120,6 +129,7 @@ public class TaskListTester {
     Task.resetIDGenerator();
     boolean returnValue = true;
 
+    // creastes a list with 4 tasks
     TaskList taskList = new TaskList();
     Task taskOne = new Task("Homework", TaskPriority.HIGH);
     Task taskFour = new Task("Homework Two", TaskPriority.HIGH);
@@ -131,18 +141,22 @@ public class TaskListTester {
     taskList.addTask(taskThree);
     // System.out.println(taskList);
 
+    // removeds the head and makes sure it gets removed properly
     Task headTask = taskList.remove(0);
     if (headTask.equals(taskOne) == false || taskList.size() != 3
         || taskList.get(0).equals(taskFour) == false) {
       returnValue = false;
     }
 
+    // removes the tail making sure the tail is removed properly
     Task tailTask = taskList.remove(taskList.size() - 1);
     if (tailTask.equals(taskThree) == false || taskList.size() != 2
         || taskList.get(1).equals(taskTwo) == false) {
       returnValue = false;
     }
 
+    // adds another task to the middle of the list then removes it making sure
+    // removing from the middle works as intended
     Task middleTask = new Task("Middle", TaskPriority.HIGH);
     taskList.addTask(middleTask);
     Task removeMiddle = taskList.remove(1);
@@ -150,7 +164,7 @@ public class TaskListTester {
         || taskList.get(0).equals(taskFour) == false) {
       returnValue = false;
     }
-
+    // remocves the last ones and tests to make sure the isEmpty method works
     taskList.remove(0);
     taskList.remove(0);
     if (taskList.isEmpty() == false) {
@@ -158,6 +172,8 @@ public class TaskListTester {
     }
 
     try {
+      // test to make sure trying to remove an index that doesn't exist returns an
+      // error
       taskList.remove(0);
       returnValue = false;
     } catch (Exception e) {

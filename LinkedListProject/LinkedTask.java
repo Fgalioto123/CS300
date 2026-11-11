@@ -31,6 +31,7 @@ public class LinkedTask {
    * @param task - the task
    */
   public LinkedTask(Task task) {
+    // setting the values for the contrusctor
     this.task = task;
     this.next = null;
   }
@@ -44,9 +45,11 @@ public class LinkedTask {
    * @param next
    */
   public LinkedTask(Task task, LinkedTask next) {
+    // checks to make sure that the task is not null and if it is throw a exception
     if (task == null) {
       throw new IllegalArgumentException();
     }
+    // setting the tasks and next node
     this.task = task;
     this.next = next;
   }
@@ -59,6 +62,7 @@ public class LinkedTask {
    * @return the task data
    */
   public Task getTask() {
+    // returns the task
     return this.task;
   }
 
@@ -68,6 +72,7 @@ public class LinkedTask {
    * @return the next node, or null if this is the last node
    */
   public LinkedTask getNext() {
+    // returns the next node
     return this.next;
   }
 
@@ -80,6 +85,7 @@ public class LinkedTask {
    * @param next - the node the current node is now pointing to
    */
   public void setNext(LinkedTask next) {
+    // sets the next node to the given parameters
     this.next = next;
   }
 
@@ -95,6 +101,10 @@ public class LinkedTask {
    */
   @Override
   public String toString() {
+    // creates a string using the task's toString then
+    // checks to see if it is at the end or not
+    // if it is concatenates -> END if not just adds a -> so another
+    // task can be added on
     String print = "" + task;
     if (this.next == null) {
       print += " -> END";
