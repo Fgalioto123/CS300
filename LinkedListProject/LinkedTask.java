@@ -1,6 +1,17 @@
-// TODO: File header comment
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall 2026
+ * Assignment: Program 7
+ * Citations: None
+ */
 
-// TODO: Class header comment
+/**
+ * The linkedTask class are the nodes of the linked list. They contain the data
+ * or task
+ * they also contain the next pointer which points to the next node or null if
+ * there isnt any
+ */
 public class LinkedTask {
 
   /** The task data stored in this node. */
@@ -12,18 +23,26 @@ public class LinkedTask {
    */
   private LinkedTask next;
 
-  // TODO: Implement a one-argument constructor LinkedTask(Task task)
   // - Sets task to the given value and next to null
   // - Throws IllegalArgumentException if task is null
+  /**
+   * constructor that sets the task and the next pointer to null
+   * 
+   * @param task - the task
+   */
   public LinkedTask(Task task) {
     this.task = task;
     this.next = null;
   }
 
-  // TODO: Implement a two-argument constructor LinkedTask(Task task, LinkedTask
-  // next)
   // - Sets both fields to the given values
   // - Throws IllegalArgumentException if task is null
+  /**
+   * sets both of the fields correctly
+   * 
+   * @param task
+   * @param next
+   */
   public LinkedTask(Task task, LinkedTask next) {
     if (task == null) {
       throw new IllegalArgumentException();
@@ -54,17 +73,26 @@ public class LinkedTask {
 
   // ---- END OF PROVIDED CODE ----
 
-  // TODO: Implement setNext(LinkedTask next)
   // - Updates the next reference to the given value (may be null)
+  /**
+   * changes the next pointer to point to a different node
+   * 
+   * @param next - the node the current node is now pointing to
+   */
   public void setNext(LinkedTask next) {
     this.next = next;
   }
 
-  // TODO: Override toString()
   // - Returns the task's string representation followed by " -> " if there is
   // a next node, or " -> END" if this is the last node
   // - Example with next: "HIGH: Fix bug (1) -> "
   // - Example without next: "HIGH: Fix bug (1) -> END"
+  /**
+   * (non-Javadoc)
+   * prints out the task and the link between the next one or the END
+   * 
+   * @see java.lang.Object#toString()
+   */
   @Override
   public String toString() {
     String print = "" + task;

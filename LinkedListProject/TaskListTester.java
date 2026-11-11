@@ -1,61 +1,171 @@
-// TODO: File header comment
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall 2026
+ * Assignment: Program 7
+ * Citations: None
+ */
 
-// TODO: Class header comment
+/**
+ * 
+ * TaskListTester tests the methods and linked list created by the other files
+ * in this program
+ */
 public class TaskListTester {
 
-  // TODO: Implement testLinkedTask()
   // - The constructors should handle null input correctly
   // (IllegalArgumentException)
   // - The toString() should return the correct format with and without a next
   // node
+  /**
+   * tests that creating a node works and has the correect tasks
+   * 
+   * @return - true or false
+   */
   public static boolean testLinkedTask() {
+    Task.resetIDGenerator();
     boolean test = true;
-    try {
-      TaskPriority taskPriority = TaskPriority.HIGH;
-      Task task = new Task("blah", taskPriority);
-      // LinkedTask testTask = new LinkedTask(task);
-      LinkedTask linkedTask = new LinkedTask(null, null);
-      return false;
-    } catch (IllegalArgumentException e) {
-    }
     TaskPriority taskPriority = TaskPriority.HIGH;
-    Task task = new Task("Homework", taskPriority);
+    // Task taskTest = new Task("blah", taskPriority);
+    try {
+
+      LinkedTask linkedTask = new LinkedTask(null, null);
+      System.out.println("turns1");
+      test = false;
+    } catch (IllegalArgumentException e) {
+      // System.out.println(e.getMessage());
+    }
+    // TaskPriority taskPriority = TaskPriority.HIGH;
+    Task taskOne = new Task("Homework", taskPriority);
     Task taskTwo = new Task("Homework Again", taskPriority);
-    LinkedTask linkedTaskOne = new LinkedTask(task);
+    LinkedTask linkedTaskOne = new LinkedTask(taskOne);
     LinkedTask linkedTaskTwo = new LinkedTask(taskTwo, linkedTaskOne);
     String outputOne = "" + linkedTaskOne;
     String outputTwo = "" + linkedTaskTwo;
-    if (outputOne.equals("HIGH: Homework (2) -> END") &&
-        outputTwo.equals("HIGH: Homework Again (3) -> ")) {
-
+    if (outputOne.equals("HIGH: Homework (1) -> END") &&
+        outputTwo.equals("HIGH: Homework Again (2) -> ")) {
+      // System.out.println("correct");
     } else {
+      // System.out.println("turns2");
       test = false;
     }
 
     return test;
   }
 
-  // TODO: Implement testAddTask(), pay attention to the size
   // - Verify that adding to an empty list works correctly
   // - Verify that addTask() inserts tasks in the correct priority order
   // - Verify that tasks within the same priority group maintain insertion order
   // - Verify that null input is handled correctly (IllegalArgumentException)
+  /**
+   * tests different ways of adding to the linked list and making sure it adds
+   * based on the priority, updates head and tail, etc.
+   * 
+   * @return - true or false
+   */
   public static boolean testAddTask() {
     Task.resetIDGenerator();
-    // TODO
-    return false;
+    boolean returnValue = true;
+
+    TaskList taskList = new TaskList();
+    Task taskOne = new Task("Homework", TaskPriority.HIGH);
+    taskList.addTask(taskOne);
+    if (taskList.size() != 1 || taskList.isEmpty() == true
+        || taskList.get(0).equals(taskOne) == false) {
+      System.out.println("ran4");
+      returnValue = false;
+    }
+
+    Task taskTwo = new Task("Lesser Homework", TaskPriority.MEDIUM);
+    Task taskThree = new Task("Low Homework", TaskPriority.LOW);
+    taskList.addTask(taskTwo);
+    taskList.addTask(taskThree);
+    if (taskList.get(1).equals(taskTwo) == false
+        || taskList.get(2).equals(taskThree) == false) {
+      System.out.println("ran3");
+      returnValue = false;
+    }
+
+    Task taskFour = new Task("Homework Two", TaskPriority.HIGH);
+    taskList.addTask(taskFour);
+    if (taskList.get(1).equals(taskFour) == false && taskList.size() == 4) {
+      System.out.println("ran");
+      returnValue = false;
+    }
+
+    try {
+      taskList.addTask(null);
+      System.out.println("ran2");
+      returnValue = false;
+    } catch (IllegalArgumentException e) {
+
+    }
+    // System.out.println(taskList);
+
+    return returnValue;
   }
 
-  // TODO: Implement testRemove(), pay attention to the size
   // - Verify that removing the first element (index 0) works correctly
   // - Verify that removing the last element works correctly
   // - Verify that removing from the middle correctly relinks the remaining nodes
   // - Verify that removing the only element produces an empty list
   // - Verify that invalid indices throw IndexOutOfBoundsException
+  /**
+   * tests removing from the linked list in different ways while making sure it
+   * does the correct order and tail/head position
+   * 
+   * @return - true or false
+   */
   public static boolean testRemove() {
     Task.resetIDGenerator();
-    // TODO
-    return false;
+    boolean returnValue = true;
+
+    TaskList taskList = new TaskList();
+    Task taskOne = new Task("Homework", TaskPriority.HIGH);
+    Task taskFour = new Task("Homework Two", TaskPriority.HIGH);
+    Task taskTwo = new Task("Lesser Homework", TaskPriority.MEDIUM);
+    Task taskThree = new Task("Low Homework", TaskPriority.LOW);
+    taskList.addTask(taskOne);
+    taskList.addTask(taskFour);
+    taskList.addTask(taskTwo);
+    taskList.addTask(taskThree);
+    // System.out.println(taskList);
+
+    Task headTask = taskList.remove(0);
+    if (headTask.equals(taskOne) == false || taskList.size() != 3
+        || taskList.get(0).equals(taskFour) == false) {
+      returnValue = false;
+    }
+
+    Task tailTask = taskList.remove(taskList.size() - 1);
+    if (tailTask.equals(taskThree) == false || taskList.size() != 2
+        || taskList.get(1).equals(taskTwo) == false) {
+      returnValue = false;
+    }
+
+    Task middleTask = new Task("Middle", TaskPriority.HIGH);
+    taskList.addTask(middleTask);
+    Task removeMiddle = taskList.remove(1);
+    if (removeMiddle.equals(middleTask) == false || taskList.size() != 2
+        || taskList.get(0).equals(taskFour) == false) {
+      returnValue = false;
+    }
+
+    taskList.remove(0);
+    taskList.remove(0);
+    if (taskList.isEmpty() == false) {
+      returnValue = false;
+    }
+
+    try {
+      taskList.remove(0);
+      returnValue = false;
+    } catch (Exception e) {
+      // System.out.println("caught");
+    }
+
+    // System.out.println(taskList);
+    return returnValue;
   }
 
   // ---- PROVIDED METHODS (do not modify) ----
@@ -68,8 +178,8 @@ public class TaskListTester {
   public static boolean runAllTests() {
     boolean allPass = true;
     allPass &= testLinkedTask();
-    // allPass &= testAddTask();
-    // allPass &= testRemove();
+    allPass &= testAddTask();
+    allPass &= testRemove();
     return allPass;
   }
 
@@ -77,34 +187,34 @@ public class TaskListTester {
    * Demonstrates the functionality of the TaskList with sample data.
    * See the assignment specification for expected output.
    */
-  // public static void demo() {
-  // Task.resetIDGenerator();
-  // TaskList list = new TaskList();
+  public static void demo() {
+    Task.resetIDGenerator();
+    TaskList list = new TaskList();
 
-  // list.addTask(new Task("Deploy to production", TaskPriority.MEDIUM));
-  // list.addTask(new Task("Fix login bug", TaskPriority.HIGH));
-  // list.addTask(new Task("Update README", TaskPriority.LOW));
-  // list.addTask(new Task("Code review PR #42", TaskPriority.MEDIUM));
-  // list.addTask(new Task("Patch security vuln", TaskPriority.HIGH));
+    list.addTask(new Task("Deploy to production", TaskPriority.MEDIUM));
+    list.addTask(new Task("Fix login bug", TaskPriority.HIGH));
+    list.addTask(new Task("Update README", TaskPriority.LOW));
+    list.addTask(new Task("Code review PR #42", TaskPriority.MEDIUM));
+    list.addTask(new Task("Patch security vuln", TaskPriority.HIGH));
 
-  // System.out.println("List Before Completion:");
-  // System.out.println(list);
-  // System.out.println("Size: " + list.size());
+    System.out.println("List Before Completion:");
+    System.out.println(list);
+    System.out.println("Size: " + list.size());
 
-  // list.get(0).markComplete();
-  // list.get(2).markComplete();
-  // list.get(4).markComplete();
+    list.get(0).markComplete();
+    list.get(2).markComplete();
+    list.get(4).markComplete();
 
-  // System.out.println("\nList After Completion:");
-  // System.out.println(list);
+    System.out.println("\nList After Completion:");
+    System.out.println(list);
 
-  // list.remove(4);
-  // list.remove(2);
-  // list.remove(0);
+    list.remove(4);
+    list.remove(2);
+    list.remove(0);
 
-  // System.out.println("\nList After Deletion:");
-  // System.out.println(list);
-  // }
+    System.out.println("\nList After Deletion:");
+    System.out.println(list);
+  }
 
   /**
    * Main method. Runs all tests and prints results, then runs the demo.
@@ -118,6 +228,6 @@ public class TaskListTester {
     System.out.println("runAllTests: " + runAllTests());
 
     System.out.println("\n========== DEMO ==========\n");
-    // demo();
+    demo();
   }
 }

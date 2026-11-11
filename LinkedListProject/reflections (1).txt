@@ -1,10 +1,10 @@
 Reflection Questions
 
 1. Describe your experience/confidence in completing this project in 2-3 sentences.
-TODO
+I felt more confident int completing this project compared to the last one. Overall I did not think this project was extremly hard but it was still a small challege.
 
 2. What was the most challenging part of completing this program?
-TODO
+Adding to the list was defintly the hardest because it was not normal insertion because of the priorities.
 
 3. Compared to using an ArrayList, what do you think are the main advantages and disadvantages of implementing the task list with a linked list?
-TODO
+The space is probably the biggest benefit not having to create a new array everytime you need to resize the allocation size. The disadvantages are that is it alot more complicated then normal arrayLists. Also traversing throught the linked list is alot harder and more complicated.
