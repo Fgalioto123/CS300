@@ -12,7 +12,7 @@
  * the head and tail. In this class you can add, remove, and other essential
  * things pertaining to a linked list
  * 
- * @param <T>
+ * @param <T> - the type that is being implemented for the LL
  */
 public class TaskList implements SortedTaskListADT<Task> {
 
