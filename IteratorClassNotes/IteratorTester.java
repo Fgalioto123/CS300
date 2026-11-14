@@ -57,9 +57,10 @@ class IterableStack<T> implements StackADT<T>, Iterable<T> {
    * Creates a new IterableStack which contains a deep copy of
    * this stack's data
    */
-  public IterableStack(IterableStack toCopy) {
+  public IterableStack(IterableStack<T> toCopy) {
     // TODO: use ArrayList's copy constructor so that
     // this.data is a deep copy of toCopy.data
+    this.data = new ArrayList<T>(toCopy.data);
   }
 
   // from Iterable:
@@ -67,7 +68,7 @@ class IterableStack<T> implements StackADT<T>, Iterable<T> {
   public Iterator<T> iterator() {
     // TODO: modify this method so it uses your copy constructor
     // instead of directly exposing the stack's internal data
-    return new StackIterator<T>(this);
+    return new StackIterator(new IterableStack(this));
   }
   // ----------------- END ITERATOR STUFF --------------------- //
 
