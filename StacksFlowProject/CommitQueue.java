@@ -1,12 +1,55 @@
-// TODO: File Header
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall 2026
+ * Assignment: Program 8
+ * Citations: None
+ */
 
 /**
- * The CommitQueue class represents a queue of commits to be pushed to a remote repository.
- * This class provides basic queue operations such as enqueue, dequeue, peek, clear, and contains.
+ * The CommitQueue class represents a queue of commits to be pushed to a remote
+ * repository.
+ * This class provides basic queue operations such as enqueue, dequeue, peek,
+ * clear, and contains.
  */
 public class CommitQueue extends LinkedStructure<Commit> implements QueueADT<Commit> {
 
-  // TODO: Implement and @Override QueueADT methods
-  // Note that isEmpty(), size(), clear(), and contains() are implemented in LinkedStructure.
+  /**
+   * Add a new element to the back of the queue, assumed to be non-null.
+   *
+   * @param value the value to add
+   */
+  @Override
+  public void enqueue(Commit value) {
+    LinkedNode<Commit> linkedNode = new LinkedNode<Commit>(value);
+    LinkedNode<Commit> tailLinkedNode = tail;
+    tailLinkedNode.setNext(linkedNode);
+    tail = linkedNode;
+    size++;
+  }
+
+  /**
+   * Removes and returns the value added to this queue least recently.
+   *
+   * @return the least recently-added value, or null if the queue is empty
+   */
+  @Override
+  public Commit dequeue() {
+    LinkedNode<Commit> linkedNode = head;
+    head = head.getNext();
+    size--;
+    return linkedNode.getData();
+  }
+
+  /**
+   * Accesses the value added to this queue least recently, without modifying the
+   * queue.
+   *
+   * @return the least recently-added value, or null if the queue is empty
+   */
+  @Override
+  public Commit peek() {
+    return head.getData();
+  }
 
 }
