@@ -44,13 +44,12 @@ class LinkedIterator<T> implements Iterator<T> {
    * @return the data from the current in the backing linked data structure
    */
   public T next() {
-    T data = current.getData();
-    current = current.getNext();
-
-    if (current == null) {
+    if (!hasNext()) {
       throw new NoSuchElementException();
     }
 
+    T data = current.getData();
+    current = current.getNext();
     return data;
   }
 }
