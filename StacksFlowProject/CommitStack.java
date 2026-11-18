@@ -42,16 +42,16 @@ public class CommitStack extends LinkedStructure<Commit> implements StackADT<Com
    */
   @Override
   public Commit pop() {
-    if (size == 1) {
-      LinkedNode<Commit> lastNode = head;
-      clear();
-      return lastNode.getData();
+    if (isEmpty()) {
+      return null;
     }
-    LinkedNode<Commit> node = head;
-    LinkedNode<Commit> newNode = head.getNext();
-    head = newNode;
+    LinkedNode<Commit> old = head;
+    head = head.getNext();
     size--;
-    return node.getData();
+    if (size == 0) {
+      tail = null;
+    }
+    return old.getData();
   }
 
   /**
@@ -62,6 +62,9 @@ public class CommitStack extends LinkedStructure<Commit> implements StackADT<Com
    */
   @Override
   public Commit peek() {
+    if (isEmpty()) {
+      return null;
+    }
     return head.getData();
   }
 
