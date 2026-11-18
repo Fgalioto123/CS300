@@ -1,5 +1,10 @@
-// TODO: File Header
-
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall 2026
+ * Assignment: Program 8
+ * Citations: None
+ */
 /**
  * Represents a branch of commits in a version control system.
  * Contains a stack of commits that have been pushed to the remote repository,
@@ -27,7 +32,13 @@ public class Branch implements Iterable<Commit> {
    *               exception
    */
   public Branch(String name, Branch branch) {
-    // TODO: Instantiate fields
+    this.name = name;
+    this.commitQueue = new CommitQueue();
+    if (branch == null) {
+      this.commitStack = new CommitStack();
+    } else {
+      this.commitStack = branch.commitStack;
+    }
   }
 
   /**
@@ -46,7 +57,7 @@ public class Branch implements Iterable<Commit> {
    * @return the String name of the branch
    */
   public String getName() {
-    // TODO: Implement
+    return name;
   }
 
   /**
@@ -55,7 +66,7 @@ public class Branch implements Iterable<Commit> {
    * @return the HEAD commit
    */
   public Commit getHead() {
-    // TODO: Implement
+    return commitQueue.peek();
   }
 
   /**
@@ -64,14 +75,16 @@ public class Branch implements Iterable<Commit> {
    * @param commit the commit to enqueue.
    */
   public void makeCommit(Commit commit) {
-    // TODO: Implement
+    commitQueue.enqueue(commit);
   }
 
   /**
    * Push all commits from commitQueue to commitStack.
    */
   public void pushAllCommits() {
-    // TODO: Implement
+    for (Commit commit : commitQueue) {
+      commitStack.push(commit);
+    }
   }
 
   /**
@@ -80,7 +93,10 @@ public class Branch implements Iterable<Commit> {
    * @return true only if the branch is empty
    */
   public boolean isEmpty() {
-    // TODO: Implement
+    if (commitStack.isEmpty()) {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -90,7 +106,7 @@ public class Branch implements Iterable<Commit> {
    * @return the size of the commit stack
    */
   public int getNumPushedCommits() {
-    // TODO: Implement
+    return commitStack.size;
   }
 
   /**
@@ -101,8 +117,20 @@ public class Branch implements Iterable<Commit> {
    * @throws CommitNotFoundException if no commit matches the provided ID.
    */
   public Commit findCommitById(String id) throws CommitNotFoundException {
-    // TODO: Implement
-    // TODO: Throw CommitNotFoundException if no matching commits are found
+    for (Commit commit : commitQueue) {
+      if (commit.getId().equals(id)) {
+        return commit;
+      }
+    }
+
+    for (Commit commit : commitStack) {
+      if (commit.getId().equals(id)) {
+        return commit;
+      }
+    }
+
+    throw new CommitNotFoundException("Commit not found");
+
   }
 
   /**
@@ -114,8 +142,19 @@ public class Branch implements Iterable<Commit> {
    *                                 one.
    */
   public Commit findCommitByMessage(String message) throws CommitNotFoundException {
-    // TODO: Implement
-    // TODO: Throw CommitNotFoundException if no matching commits are found
+    for (Commit commit : commitQueue) {
+      if (commit.getMessage().contains(message)) {
+        return commit;
+      }
+    }
+
+    for (Commit commit : commitStack) {
+      if (commit.getMessage().contains(message)) {
+        return commit;
+      }
+    }
+
+    throw new CommitNotFoundException("Commit not found");
   }
 
   /**
@@ -124,8 +163,10 @@ public class Branch implements Iterable<Commit> {
    * @return the last commit pushed to the branch
    */
   public Commit undoLastCommit() throws CommitNotFoundException {
-    // TODO: Throw CommitNotFoundException if there are no commits
-    // TODO: Implement
+    if (commitStack.size == 0) {
+      throw new CommitNotFoundException("No commits");
+    }
+    return commitStack.pop();
   }
 
   /**
@@ -134,7 +175,7 @@ public class Branch implements Iterable<Commit> {
    * @return a new LinkedIterator over this branch's commit stack
    */
   public LinkedIterator<Commit> iterator() {
-    // TODO: Implement
+    return new LinkedIterator<Commit>(new LinkedNode<Commit>(commitStack.peek()));
   }
 
   /**
@@ -150,8 +191,30 @@ public class Branch implements Iterable<Commit> {
    *         with the most recent commit on top
    */
   protected CommitStack getAllCommitsAfter(Commit commit) throws CommitNotFoundException {
-    // TODO: Implement
-    // TODO: Throw CommitNotFoundException if no matching commits are found
+    CommitStack newStack = new CommitStack();
+    if (commit == null) {
+      for (Commit commits : commitStack) {
+        newStack.push(commits);
+      }
+      return newStack;
+    }
+
+    boolean add = false;
+
+    for (Commit newCommit : commitStack) {
+      if (newCommit.equals(commit)) {
+        add = true;
+      }
+      if (add && !newCommit.equals(commit)) {
+        newStack.push(newCommit);
+      }
+    }
+
+    if (newStack.size == 0) {
+      throw new CommitNotFoundException("Commit not found");
+    } else {
+      return newStack;
+    }
   }
 
   // PROVIDED METHOD

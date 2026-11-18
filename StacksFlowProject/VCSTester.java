@@ -1,4 +1,10 @@
-// TODO: File Header
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall 2026
+ * Assignment: Program 8
+ * Citations: None
+ */
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,10 +32,10 @@ public class VCSTester {
     boolean allPass = true;
 
     allPass &= testCommitChangesDefensiveCopy();
-    // allPass &= testStackPushPop();
-    // allPass &= testQueueEnqueueDequeue();
+    allPass &= testStackPushPop();
+    allPass &= testQueueEnqueueDequeue();
     allPass &= testLinkedIterator();
-    // allPass &= testBranchMakeAndPushCommit();
+    allPass &= testBranchMakeAndPushCommit();
     // allPass &= testRepositoryBasics();
 
     return allPass;
@@ -87,11 +93,61 @@ public class VCSTester {
       return false;
     }
 
-    // TODO
-    // Case 2: Push to a non-empty stack
-    // Case 3: Pop from a non-empty stack
-    // Case 4: Pop from an empty stack
-    return false;
+    try {
+      CommitStack stack = new CommitStack();
+      Commit commit = new Commit("First commit", new ArrayList<>(Arrays.asList("a.java")));
+      Commit commit2 = new Commit("Second Message", new ArrayList<>(Arrays.asList("b.java")));
+      stack.push(commit);
+      stack.push(commit2);
+      if (stack.size() != 2) {
+        System.out.println("Case 2 failed:");
+        System.out.println("Actual Size: " + stack.size());
+        System.out.println("Expected Size: 2");
+        return false;
+      }
+      if (!stack.peek().equals(commit2)) {
+        System.out.println("Case 2 failed:");
+        System.out.println("Top element should be the most recently pushed commit");
+        return false;
+      }
+    } catch (Exception e) {
+      System.out.println("Case 2 failed with exception: " + e);
+      return false;
+    }
+
+    try {
+      CommitStack stack = new CommitStack();
+      Commit commit = new Commit("First commit", new ArrayList<>(Arrays.asList("a.java")));
+      Commit commit2 = new Commit("Second Message", new ArrayList<>(Arrays.asList("b.java")));
+      stack.push(commit);
+      stack.push(commit2);
+      Commit commit3 = stack.pop();
+      if (stack.size() != 1) {
+        System.out.println("Case 3 failed:");
+        System.out.println("Actual Size: " + stack.size());
+        System.out.println("Expected Size: 1");
+        return false;
+      }
+      if (!commit3.equals(commit2)) {
+        System.out.println("Case 3 failed:");
+        System.out.println("Commit 3 and 2 should be equal");
+        return false;
+      }
+    } catch (Exception e) {
+      System.out.println("Case 3 failed with exception: " + e);
+      return false;
+    }
+
+    try {
+      CommitStack stack = new CommitStack();
+      Commit commit = stack.pop();
+      System.out.println("Should of gave error on test 4");
+      return false;
+    } catch (Exception e) {
+      System.out.println("Case 4 CORRECTLY failed with exception: " + e);
+    }
+
+    return true;
   }
 
   /**
@@ -121,11 +177,63 @@ public class VCSTester {
       return false;
     }
 
-    // TODO
     // Case 2: Enqueue to a non-empty queue
+    try {
+      CommitQueue queue = new CommitQueue();
+      Commit commit = new Commit("First commit", new ArrayList<>(Arrays.asList("a.java")));
+      Commit commit2 = new Commit("Second Message", new ArrayList<>(Arrays.asList("b.java")));
+      queue.enqueue(commit);
+      queue.enqueue(commit2);
+      if (queue.size() != 2) {
+        System.out.println("Case 2 failed:");
+        System.out.println("Actual Size: " + queue.size());
+        System.out.println("Expected Size: 2");
+        return false;
+      }
+      if (!queue.peek().equals(commit)) {
+        System.out.println("Case 2 failed:");
+        System.out.println("Front element should be the first enqueued commit");
+        return false;
+      }
+    } catch (Exception e) {
+      System.out.println("Case 1 failed with exception: " + e);
+      return false;
+    }
+
     // Case 3: Dequeue from a non-empty queue
+    try {
+      CommitQueue queue = new CommitQueue();
+      Commit commit = new Commit("First commit", new ArrayList<>(Arrays.asList("a.java")));
+      Commit commit2 = new Commit("Second Message", new ArrayList<>(Arrays.asList("b.java")));
+      queue.enqueue(commit);
+      queue.enqueue(commit2);
+      Commit commit3 = queue.dequeue();
+      if (queue.size() != 1) {
+        System.out.println("Case 3 failed:");
+        System.out.println("Actual Size: " + queue.size());
+        System.out.println("Expected Size: 1");
+        return false;
+      }
+      if (!commit3.equals(commit)) {
+        System.out.println("Case 3 failed:");
+        System.out.println("commit 3 should be the same as commit");
+        return false;
+      }
+    } catch (Exception e) {
+      System.out.println("Case 1 failed with exception: " + e);
+      return false;
+    }
     // Case 4: Dequeue from an empty queue
-    return false;
+    try {
+      CommitQueue queue = new CommitQueue();
+      queue.dequeue();
+      System.out.println("Should of gotten an error in case 4");
+      return false;
+    } catch (Exception e) {
+      System.out.println("Case 4 correctly failed with exception: " + e);
+
+    }
+    return true;
   }
 
   /**
@@ -170,11 +278,31 @@ public class VCSTester {
    * @return true if all tests pass
    */
   public static boolean testBranchMakeAndPushCommit() {
-    // TODO
+
     // Case 1: Make at least 3 commits without pushing
-    // Case 2: Push all commits
-    // Case 3: Check that head is the most recently pushed commit
-    return false;
+
+    try {
+      Branch branch = new Branch("Branch One");
+      Commit commit = new Commit("First commit", new ArrayList<>(Arrays.asList("a.java")));
+      Commit commit2 = new Commit("Second commit", new ArrayList<>(Arrays.asList("b.java")));
+      Commit commit3 = new Commit("Third commit", new ArrayList<>(Arrays.asList("c.java")));
+      branch.makeCommit(commit);
+      branch.makeCommit(commit2);
+      branch.makeCommit(commit3);
+
+      // Case 2: Push all commits
+      branch.pushAllCommits();
+      // Case 3: Check that head is the most recently pushed commit
+      boolean value = branch.getHead().equals(commit);
+      if (value == false) {
+        return false;
+      }
+    } catch (Exception e) {
+      System.out.println("Exception incorrectly caught");
+      return false;
+    }
+
+    return true;
   }
 
   /**

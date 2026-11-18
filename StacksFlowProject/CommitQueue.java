@@ -21,11 +21,19 @@ public class CommitQueue extends LinkedStructure<Commit> implements QueueADT<Com
    */
   @Override
   public void enqueue(Commit value) {
-    LinkedNode<Commit> linkedNode = new LinkedNode<Commit>(value);
-    LinkedNode<Commit> tailLinkedNode = tail;
-    tailLinkedNode.setNext(linkedNode);
-    tail = linkedNode;
-    size++;
+    if (size == 0) {
+      LinkedNode<Commit> firstNode = new LinkedNode<Commit>(value);
+      head = firstNode;
+      tail = firstNode;
+      size++;
+    } else {
+      LinkedNode<Commit> linkedNode = new LinkedNode<Commit>(value);
+      LinkedNode<Commit> tailLinkedNode = tail;
+      tailLinkedNode.setNext(linkedNode);
+      tail = linkedNode;
+      size++;
+    }
+
   }
 
   /**
@@ -35,6 +43,12 @@ public class CommitQueue extends LinkedStructure<Commit> implements QueueADT<Com
    */
   @Override
   public Commit dequeue() {
+    if (size == 1) {
+      LinkedNode<Commit> lastNode = head;
+      clear();
+      return lastNode.getData();
+    }
+
     LinkedNode<Commit> linkedNode = head;
     head = head.getNext();
     size--;
