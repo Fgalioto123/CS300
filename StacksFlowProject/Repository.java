@@ -67,14 +67,14 @@ public class Repository {
    * @return the Branch with the specified name, if found, or null otherwise
    */
   public Branch getBranchByName(String name) {
-    Branch b = null;
+    Branch aVarMaybe = null;
     for (Branch branch : branches) {
       if (branch.getName().equals(name)) {
-        b = branch;
-        return b;
+        aVarMaybe = branch;
+        return aVarMaybe;
       }
     }
-    return b;
+    return aVarMaybe;
   }
 
   /**

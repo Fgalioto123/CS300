@@ -47,7 +47,7 @@ class LinkedIterator<T> implements Iterator<T> {
     T data = current.getData();
     current = current.getNext();
 
-    if (data == null) {
+    if (current == null) {
       throw new NoSuchElementException();
     }
 

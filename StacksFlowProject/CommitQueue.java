@@ -43,6 +43,9 @@ public class CommitQueue extends LinkedStructure<Commit> implements QueueADT<Com
    */
   @Override
   public Commit dequeue() {
+    if (size == 0) {
+      return null;
+    }
     if (size == 1) {
       LinkedNode<Commit> lastNode = head;
       clear();
@@ -63,6 +66,9 @@ public class CommitQueue extends LinkedStructure<Commit> implements QueueADT<Com
    */
   @Override
   public Commit peek() {
+    if (size == 0) {
+      return null;
+    }
     return head.getData();
   }
 

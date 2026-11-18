@@ -17,6 +17,10 @@
 
 import java.util.ArrayList;
 
+/**
+ * words on a page
+ * Commit - yes
+ */
 public class Commit {
   // Auto-generated commit ID (short-hash style, e.g., a1cb2f).
   private String id;

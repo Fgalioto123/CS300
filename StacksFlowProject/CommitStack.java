@@ -87,7 +87,7 @@ public class CommitStack extends LinkedStructure<Commit> implements StackADT<Com
   /**
    * helper method for the printallOldestfirst
    * 
-   * @param - node
+   * @param node
    */
   private void printRecursion(LinkedNode<Commit> node) {
     if (node == null) {
