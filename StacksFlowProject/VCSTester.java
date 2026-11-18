@@ -36,7 +36,7 @@ public class VCSTester {
     allPass &= testQueueEnqueueDequeue();
     allPass &= testLinkedIterator();
     allPass &= testBranchMakeAndPushCommit();
-    // allPass &= testRepositoryBasics();
+    allPass &= testRepositoryBasics();
 
     return allPass;
   }
@@ -311,11 +311,34 @@ public class VCSTester {
    * @return true if all tests pass
    */
   public static boolean testRepositoryBasics() {
-    // TODO
+
     // Case 1: Verify that active branch is initialized
+    Repository repo = new Repository("Repo One");
+    if (repo.getActiveBranch() != null) {
+      return false;
+    }
+
     // Case 2: Make and push commits to main branch
+    Commit commit = new Commit("First commit", new ArrayList<>(Arrays.asList("a.java")));
+    Commit commit2 = new Commit("Second commit", new ArrayList<>(Arrays.asList("b.java")));
+    Branch branch = new Branch("BranchOne");
+    branch.makeCommit(commit);
+    branch.makeCommit(commit2);
+    repo.checkout(branch);
+    repo.createBranch("Branch");
+
     // Case 3: Get an existing and nonexistent branch by name
+
+    Branch b1 = repo.getBranchByName("Branch");
+    Branch b2 = repo.getBranchByName("Falalal");
+    if (b1 == null || b2 != null) {
+      return false;
+    }
+
     // Case 4: Create and checkout a new branch
-    return false;
+    Branch branch2 = new Branch("Branch Two");
+    repo.checkout(branch2);
+
+    return true;
   }
 }

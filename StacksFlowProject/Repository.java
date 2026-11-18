@@ -30,6 +30,7 @@ public class Repository {
   public Repository(String name) {
     this.name = name;
     branches = new ArrayList<>();
+    activeBranch = null;
   }
 
   /**
@@ -159,10 +160,17 @@ public class Repository {
    */
   public void copyLastCommit(Branch source, Branch target)
       throws CommitNotFoundException, BranchNotFoundException {
-    // TODO: Check if branches exist in this Repository; throw
-    // BranchNotFoundException if not
-    // TODO: Throw CommitNotFoundException if source branch is empty
-    // TODO: Implement this method according to the assignment specification
+
+    if (!branches.contains(target) || !branches.contains(source)) {
+      throw new BranchNotFoundException("branch not found");
+    }
+
+    if (source.isEmpty()) {
+      throw new CommitNotFoundException("no comits in the source");
+    }
+
+    Commit commit = source.getHead();
+    target.makeCommit(commit);
   }
 
   /**
@@ -187,8 +195,9 @@ public class Repository {
    */
   public void rebaseMerge(Branch source, Branch target)
       throws BranchNotFoundException, CommitNotFoundException {
-    // TODO: Check if branches exist in this Repository and
-    // TODO: Implement this method based on the following procedure.
+    if (!branches.contains(target) || !branches.contains(source)) {
+      throw new BranchNotFoundException("branch not found");
+    }
 
     // 1. find common ancestor between source and target (may be null, which *is*
     // valid!)
