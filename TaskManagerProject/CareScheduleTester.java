@@ -260,12 +260,15 @@ public class CareScheduleTester {
     n10.setLeft(n20);
     n10.setRight(n30);
     n80.setLeft(n70);
-    n80.setRight(n90);
+    n70.setRight(n90);
 
     CareSchedule badschedule = new CareSchedule();
     badschedule.setRoot(n50);
     if (badschedule.isValidBST()) {
 
+      isValid = false;
+    }
+    if (badschedule.isDegenerate()) {
       isValid = false;
     }
 
