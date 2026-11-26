@@ -9,8 +9,6 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import javax.swing.text.Caret;
-
 /**
  * Iterator for CareSchedule.
  * Traverses tasks in in-order (ascending) sequence.
@@ -41,10 +39,8 @@ public class ScheduleIterator implements Iterator<CareTask> {
    */
   @Override
   public boolean hasNext() {
-    // returns if current has a next by seeing if schedule.getNexTask returns null
-    // or not
-    // it would return null if there is no next task which then returns false
-    return schedule.getNextTask(current) != null;
+    // returns true if current is null or not
+    return current != null;
   }
 
   /**
@@ -55,14 +51,13 @@ public class ScheduleIterator implements Iterator<CareTask> {
    */
   @Override
   public CareTask next() {
-    // first gets the next task
-
-    CareTask task = schedule.getNextTask(current);
-    if (task == null) {
+    if (!hasNext()) {
       throw new NoSuchElementException();
     }
+    // first gets the next task
+    CareTask task = current;
+    current = schedule.getNextTask(current);
     // sets currents equal to it
-    current = task;
     // returns the new task
     return task;
 

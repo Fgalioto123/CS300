@@ -9,8 +9,6 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import javax.swing.text.Caret;
-
 /**
  * Tester class for CareSchedule.
  */
@@ -123,6 +121,7 @@ public class CareScheduleTester {
    * @return true if all addTask tests pass, false otherwise.
    */
   public static boolean testAdd() {
+    boolean isValid = true;
     // creates a base schedule then adds a new task to it
     CareSchedule schedule = buildManualBaseTree();
     CareTask task = new CareTask(55, "55");
@@ -132,10 +131,17 @@ public class CareScheduleTester {
     CareTask correcettask = node.getRight().getLeft().getLeft().getData();
     // checks to see if it is the right one
 
-    if (correcettask.equals(task)) {
-      return true;
+    if (!correcettask.equals(task)) {
+      isValid = false;
     }
-    return false;
+
+    try {
+      schedule.addTask(task);
+      isValid = false;
+    } catch (Exception e) {
+      System.out.println("caught exception correctly");
+    }
+    return isValid;
   }
 
   ////////////////////////////////////////// NEXT //////////////////////////////////////////
@@ -182,6 +188,9 @@ public class CareScheduleTester {
     TaskNode root = schedule.getRoot();
     CareTask correctTask = new CareTask(90, "N90");
     // tests to make sure that task replaced it correctly
+    if (schedule.size() != 6) {
+      return false;
+    }
     if (root.getRight().getData().compareTo(correctTask) == 0) {
       return true;
     }
@@ -202,15 +211,25 @@ public class CareScheduleTester {
     // to the new object
     CareSchedule schedule = buildManualBaseTree();
     CareTask lastTask = null;
-    for (CareTask task : schedule) {
-      lastTask = task;
-      // System.out.println(task);
+    ScheduleIterator iterator = new ScheduleIterator(schedule);
+    while (iterator.hasNext()) {
+      lastTask = iterator.next();
+      // System.out.println(lastTask);
     }
     // checks that the last object is the correct one
-    if (lastTask.compareTo(new CareTask(90, "N90")) == 0) {
-      return true;
+    if (lastTask == null ||
+        lastTask.compareTo(new CareTask(90, "N90")) != 0) {
+      return false;
     }
-    return false;
+
+    try {
+      iterator.next();
+      return false; // no exception, so the implementation is broken
+    } catch (NoSuchElementException e) {
+      return true; // correct behavior
+    } catch (Exception e) {
+      return false; // wrong type of exception
+    }
   }
 
   ///////////////////////////////////////// STRUCTURE /////////////////////////////////////////
@@ -227,6 +246,29 @@ public class CareScheduleTester {
     CareSchedule schedule = buildManualBaseTree();
     isValid = schedule.isDegenerate();
     isValid = schedule.isValidBST();
+
+    TaskNode n50 = new TaskNode(new CareTask(50, "N50"));
+    TaskNode n20 = new TaskNode(new CareTask(20, "N20"));
+    TaskNode n80 = new TaskNode(new CareTask(80, "N80"));
+    TaskNode n10 = new TaskNode(new CareTask(10, "N10"));
+    TaskNode n30 = new TaskNode(new CareTask(30, "N30"));
+    TaskNode n70 = new TaskNode(new CareTask(70, "N70"));
+    TaskNode n90 = new TaskNode(new CareTask(90, "N90"));
+
+    n50.setLeft(n10);
+    n50.setRight(n80);
+    n10.setLeft(n20);
+    n10.setRight(n30);
+    n80.setLeft(n70);
+    n80.setRight(n90);
+
+    CareSchedule badschedule = new CareSchedule();
+    badschedule.setRoot(n50);
+    if (badschedule.isValidBST()) {
+
+      isValid = false;
+    }
+
     return isValid;
   }
 
