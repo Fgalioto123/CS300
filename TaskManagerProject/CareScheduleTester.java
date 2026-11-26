@@ -1,5 +1,15 @@
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall 2026
+ * Assignment: Program 9
+ * Citations: Asked Samuel Bernardo what exactly it wants from me in the testers
+ */
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import javax.swing.text.Caret;
 
 /**
  * Tester class for CareSchedule.
@@ -113,8 +123,19 @@ public class CareScheduleTester {
    * @return true if all addTask tests pass, false otherwise.
    */
   public static boolean testAdd() {
-    // TODO: Implement this test case.
-    return false; // Replace with actual test logic
+    // creates a base schedule then adds a new task to it
+    CareSchedule schedule = buildManualBaseTree();
+    CareTask task = new CareTask(55, "55");
+    schedule.addTask(task);
+    // then finds the task from where it should be on a correct implentation
+    TaskNode node = schedule.getRoot();
+    CareTask correcettask = node.getRight().getLeft().getLeft().getData();
+    // checks to see if it is the right one
+
+    if (correcettask.equals(task)) {
+      return true;
+    }
+    return false;
   }
 
   ////////////////////////////////////////// NEXT //////////////////////////////////////////
@@ -127,8 +148,18 @@ public class CareScheduleTester {
    * @return true if all getNextTask tests pass, false otherwise.
    */
   public static boolean testNext() {
-    // TODO: Implement this test case.
-    return false; // Replace with actual test logic
+    // creates a schedule
+    CareSchedule schedule = buildManualBaseTree();
+    // creates the root and then gets the next
+    TaskNode root = schedule.getRoot();
+    CareTask next = schedule.getNextTask(root.getData());
+    // gets the correct one manually
+    CareTask correctNext = root.getRight().getLeft().getData();
+    // checks to make sure they are the same
+    if (next.equals(correctNext)) {
+      return true;
+    }
+    return false;
   }
 
   ///////////////////////////////////////// REMOVE /////////////////////////////////////////
@@ -141,8 +172,20 @@ public class CareScheduleTester {
    * @return true if all completeTask tests pass, false otherwise.
    */
   public static boolean testRemove() {
-    // TODO: Implement this test case.
-    return false; // Replace with actual test logic
+    // creates a schedule using the pre built method
+    CareSchedule schedule = buildManualBaseTree();
+
+    // gets a new task that is in the schedule to remove it
+    CareTask task = new CareTask(80, "N80");
+    // removes then creates the task that replaced it
+    schedule.completeTask(task);
+    TaskNode root = schedule.getRoot();
+    CareTask correctTask = new CareTask(90, "N90");
+    // tests to make sure that task replaced it correctly
+    if (root.getRight().getData().compareTo(correctTask) == 0) {
+      return true;
+    }
+    return false;
   }
 
   ///////////////////////////////////////// ITERATOR /////////////////////////////////////////
@@ -155,8 +198,19 @@ public class CareScheduleTester {
    * @return true if all iterator tests pass, false otherwise.
    */
   public static boolean testIterator() {
-    // TODO: Implement this test case.
-    return false; // Replace with actual test logic
+    // creates a schedule then iterates through it setting the last one
+    // to the new object
+    CareSchedule schedule = buildManualBaseTree();
+    CareTask lastTask = null;
+    for (CareTask task : schedule) {
+      lastTask = task;
+      // System.out.println(task);
+    }
+    // checks that the last object is the correct one
+    if (lastTask.compareTo(new CareTask(90, "N90")) == 0) {
+      return true;
+    }
+    return false;
   }
 
   ///////////////////////////////////////// STRUCTURE /////////////////////////////////////////
@@ -169,8 +223,11 @@ public class CareScheduleTester {
    * @return true if all structure-related tests pass, false otherwise.
    */
   public static boolean testStructureChecks() {
-    // TODO: Implement this test case.
-    return false; // Replace with actual test logic
+    boolean isValid = true;
+    CareSchedule schedule = buildManualBaseTree();
+    isValid = schedule.isDegenerate();
+    isValid = schedule.isValidBST();
+    return isValid;
   }
 
   ////////////////////////////////////////// MAIN //////////////////////////////////////////

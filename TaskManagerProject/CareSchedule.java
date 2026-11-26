@@ -1,3 +1,12 @@
+/*
+ * Author: Fox Galioto
+ * Email: fgalioto@wisc.edu
+ * Course: CS300, Fall 2026
+ * Assignment: Program 9
+ * Citations: Samuel Bernardo - helped explain parts of what the methods were asking for
+ * because I found them sort of confusing at first
+ */
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -68,6 +77,12 @@ public class CareSchedule implements Iterable<CareTask> {
    *         (which is 0 when current is null)
    */
   private int countNodesHelper(TaskNode current) {
+    // recursively goes through the tree adding one to num
+    // then calling back up through the tree each time num
+    // becomes larger and larger for each node
+    // really hard to explain I can picture it in my head
+    // or with diagrams/tracing it
+    // but its hard for me to explain on paper
     if (current == null) {
       return 0;
     }
@@ -97,11 +112,14 @@ public class CareSchedule implements Iterable<CareTask> {
    * @return true if subtree rooted at current satisfies BST ordering
    */
   private boolean isValidBSTHelper(TaskNode current, CareTask lowerBound, CareTask upperBound) {
+    // if it reaches to the end then this part is valid
     if (current == null) {
       return true;
     }
 
+    // sets to true at the start of each call
     boolean isValid = true;
+    // checks the bounds to make sure the order is still correctly sorted
     if (lowerBound != null && current.getData().compareTo(lowerBound) <= 0) {
       isValid = false;
     }
@@ -109,10 +127,13 @@ public class CareSchedule implements Iterable<CareTask> {
       isValid = false;
     }
 
+    // goes to the left and if it ever returns false then set the whole thing to
+    // false
     if (!isValidBSTHelper(current.getLeft(), lowerBound, current.getData())) {
       isValid = false;
     }
 
+    // same with the right side
     if (!isValidBSTHelper(current.getRight(), current.getData(), upperBound)) {
       isValid = false;
     }
@@ -134,18 +155,24 @@ public class CareSchedule implements Iterable<CareTask> {
    * @return true if subtree rooted at current forms a single chain
    */
   private boolean isDegenerateHelper(TaskNode current) {
+    // if it reaches the end without error then return true
     if (current == null) {
       return true;
     }
+    // if both the childs are null then it is not degenerate because
+    // it can only have one path
     if (current.getLeft() != null && current.getRight() != null) {
       return false;
     }
 
+    // sets the variable to true everytime
     boolean isValid = true;
 
+    // if going to the left ever returns false then set isValid to false
     if (!isDegenerateHelper(current.getLeft())) {
       isValid = false;
     }
+    // same for rightside
     if (!isDegenerateHelper(current.getRight())) {
       isValid = false;
     }
@@ -165,10 +192,10 @@ public class CareSchedule implements Iterable<CareTask> {
       throw new IllegalArgumentException("Task cannot be null.");
     }
     root = addTaskHelper(task, root);
+    size++;
   }
 
   /**
-   * TODO:
    * THIS METHOD MUST BE IMPLEMENTED RECURSIVELY.
    * Inserts task into the subtree rooted at current and returns the
    * (possibly updated) subtree root.
@@ -179,7 +206,27 @@ public class CareSchedule implements Iterable<CareTask> {
    * @throws IllegalArgumentException if task is a duplicate of an existing task
    */
   private TaskNode addTaskHelper(CareTask task, TaskNode current) {
-    return null;
+    // if it is null then return the new task that is added which
+    // gets called up so the rest of the tree now has the new task
+    if (current == null) {
+      return new TaskNode(task);
+    }
+    // if you get to the same task then return an error
+    if (current.getData().equals(task)) {
+      throw new IllegalArgumentException();
+    }
+
+    // first checks to see if its greater and if it is sets the left to
+    // a call of the method going left to a smaller task because the current
+    // task is too big and if implemented now would be in the wrong spot
+    // if it is not greater then the same applies but just to the right because
+    // current is currently too small
+    if (current.getData().compareTo(task) > 0) {
+      current.setLeft(addTaskHelper(task, current.getLeft()));
+    } else {
+      current.setRight(addTaskHelper(task, current.getRight()));
+    }
+    return current;
   }
 
   /**
@@ -210,7 +257,6 @@ public class CareSchedule implements Iterable<CareTask> {
   }
 
   /**
-   * TODO:
    * THIS METHOD MUST BE IMPLEMENTED RECURSIVELY.
    * Finds successor of target within subtree rooted at current.
    *
@@ -220,7 +266,21 @@ public class CareSchedule implements Iterable<CareTask> {
    * @return next larger task than target, or null if no such task exists
    */
   private CareTask getNextTaskHelper(CareTask target, TaskNode current, CareTask bestSoFar) {
-    return null;
+    // if it is null then return the best one so far
+    // you have reached the end of the tree
+    if (current == null) {
+      return bestSoFar;
+    }
+    // check to see if its greater or less than the target
+    // if it is greater then calls the method to the left and sets the data
+    // because left could be null and this call could be the best call
+    if (current.getData().compareTo(target) > 0) {
+      return getNextTaskHelper(target, current.getLeft(), current.getData());
+    }
+
+    // otherwise go right because right now it could not be the successor
+    // because its too small so it goes right to find the target
+    return getNextTaskHelper(target, current.getRight(), bestSoFar);
   }
 
   /**
@@ -234,12 +294,11 @@ public class CareSchedule implements Iterable<CareTask> {
     if (task == null) {
       throw new IllegalArgumentException("Task cannot be null.");
     }
-    size--;
     root = completeTaskHelper(task, root);
+    size--;
   }
 
   /**
-   * TODO:
    * THIS METHOD MUST BE IMPLEMENTED RECURSIVELY.
    * Removes target from subtree rooted at current and returns updated root
    * of that subtree.
@@ -250,11 +309,42 @@ public class CareSchedule implements Iterable<CareTask> {
    * @throws NoSuchElementException if target is not found in this subtree
    */
   private TaskNode completeTaskHelper(CareTask target, TaskNode current) {
-    return null;
+    if (current == null) {
+      throw new NoSuchElementException();
+    }
+    // first check for if there is only one path
+    // left to take then go that direction
+    // otherwise check
+    if (current.getData().compareTo(target) == 0) {
+      if (current.getLeft() == null) {
+        return current.getRight();
+      }
+      if (current.getRight() == null) {
+        return current.getLeft();
+      }
+      // gets the successor by getting the smallest node in the right side
+      // then makes the new node to remove the old one
+      // sets the correct sides and then returns it
+
+      CareTask successorNode = getMinHelper(current.getRight());
+      TaskNode newReplacementNode = new TaskNode(successorNode);
+      newReplacementNode.setLeft(current.getLeft());
+      newReplacementNode.setRight(completeTaskHelper(successorNode, current.getRight()));
+      return newReplacementNode;
+    }
+
+    // navigating the tree going left or right based on if the current position
+    // is greater or less then the target
+    if (current.getData().compareTo(target) > 0) {
+      current.setLeft(completeTaskHelper(target, current.getLeft()));
+    } else {
+      current.setRight(completeTaskHelper(target, current.getRight()));
+    }
+
+    return current;
   }
 
   /**
-   * TODO:
    * THIS METHOD MUST BE IMPLEMENTED RECURSIVELY.
    * Returns smallest task in subtree rooted at current.
    *
@@ -262,7 +352,13 @@ public class CareSchedule implements Iterable<CareTask> {
    * @return smallest task in this subtree
    */
   private CareTask getMinHelper(TaskNode current) {
-    return null;
+    // if it cant go left anymore then return the data of the smallest one
+    // all the way back up
+    if (current.getLeft() == null) {
+      return current.getData();
+    }
+    // calls the method going further down the tree to the left
+    return getMinHelper(current.getLeft());
   }
 
   /**

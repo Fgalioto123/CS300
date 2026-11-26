@@ -1,10 +1,10 @@
 Reflection Questions
 
 1. Describe your experience/confidence in completing this project in 2-3 sentences.
-TODO
+It was very very hard. It was by far the hardest one some of the methods taking an hour to complete. The intructions were also very vague sometimes or unclear and had to talk about it with my friend to see if we could figure out the meaning of certain cases.
 
 2. What was the most challenging part of completing this program?
-TODO
+The getnext method was the hardest one to write but overall just recursion in general was super hard and made the project about 10 times harder.
 
 3. In this project, tasks are stored using a Binary Search Tree. Based on your experience, what are the strengths and limitations of using a BST for managing tasks in sorted order?
-TODO
+It can be faster to add or remove things from the tree because with an array you may have to shift everything. The biggest limitation is that it is a lot harder and more confusing then an array.
